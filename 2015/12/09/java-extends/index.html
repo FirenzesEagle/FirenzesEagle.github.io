@@ -1,0 +1,776 @@
+<!doctype html>
+<html class="theme-next   use-motion ">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Java,继承," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
+
+
+
+
+
+
+<meta name="description" content="在《Think in java》中有这样一句话：复用代码是Java众多引人注目的功能之一。但要想成为极具革命性的语言，仅仅能够复制代码并对加以改变是不够的，它还必须能够做更多的事情。在这句话中最引人注目的是“复用代码”,尽可能的复用代码使我们程序员一直在追求的，现在我来介绍一种复用代码的方式，也是java三大特性之一—继承。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java总结篇：Java继承">
+<meta property="og:url" content="http://firenzeseagle.github.io/2015/12/09/java-extends/index.html">
+<meta property="og:site_name" content="FirenzesEagle's Blog">
+<meta property="og:description" content="在《Think in java》中有这样一句话：复用代码是Java众多引人注目的功能之一。但要想成为极具革命性的语言，仅仅能够复制代码并对加以改变是不够的，它还必须能够做更多的事情。在这句话中最引人注目的是“复用代码”,尽可能的复用代码使我们程序员一直在追求的，现在我来介绍一种复用代码的方式，也是java三大特性之一—继承。">
+<meta property="og:updated_time" content="2015-12-09T13:24:49.070Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java总结篇：Java继承">
+<meta name="twitter:description" content="在《Think in java》中有这样一句话：复用代码是Java众多引人注目的功能之一。但要想成为极具革命性的语言，仅仅能够复制代码并对加以改变是不够的，它还必须能够做更多的事情。在这句话中最引人注目的是“复用代码”,尽可能的复用代码使我们程序员一直在追求的，现在我来介绍一种复用代码的方式，也是java三大特性之一—继承。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'post',
+    motion: true
+  };
+</script>
+
+  <title> Java总结篇：Java继承 | FirenzesEagle's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?a0b64da361ed8906a8963e2988352d20";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">FirenzesEagle's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <form class="site-search-form">
+    <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+  </form>
+
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'yVD-rX-d8gVmN5syvUpx','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Java总结篇：Java继承
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2015-12-09T17:48:01+08:00" content="2015-12-09">
+              2015-12-09
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/12/09/java-extends/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/09/java-extends/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>在《Think in java》中有这样一句话：复用代码是Java众多引人注目的功能之一。但要想成为极具革命性的语言，仅仅能够复制代码并对加以改变是不够的，它还必须能够做更多的事情。在这句话中最引人注目的是“复用代码”,尽可能的复用代码使我们程序员一直在追求的，现在我来介绍一种复用代码的方式，也是java三大特性之一—继承。</p>
+<a id="more"></a>
+<h2 id="u7EE7_u627F_u7684_u6982_u5FF5"><a href="#u7EE7_u627F_u7684_u6982_u5FF5" class="headerlink" title="继承的概念"></a>继承的概念</h2><p>继承在本职上是“特殊——一般”的关系，即常说的<code>is-a</code>关系。子类继承父类，表明子类是一种特殊的父类，并且具有父类所不具有的一些属性或方法。</p>
+<h2 id="u7EE7_u627F_u4E2D_u7684_u521D_u59CB_u5316_u987A_u5E8F"><a href="#u7EE7_u627F_u4E2D_u7684_u521D_u59CB_u5316_u987A_u5E8F" class="headerlink" title="继承中的初始化顺序"></a>继承中的初始化顺序</h2><p>从类的结构上而言，其内部可以有如下四种常见形态：属性（包括类属性和实例属性）、方法（包括类方法和实例方法）、构造器和初始化块（包括类的初始化块和实例的初始化块）。对于继承中的初始化顺序，又具体分为类的初始化和对象的初始化。</p>
+<blockquote>
+<ul>
+<li>类初始化：<br>在jvm装载类的准备阶段，首先为类的所有类属性和类初始化块分配内存空间。并在类首次初始化阶段中为其进行初始化，类属性和类初始化块之间的定义时的顺序决定了其初始化的顺序。若类存在父类，则首先初始化父类的类属性和类初始化块，一直上溯到Object类最先执行。</li>
+<li>对象初始化：<br>在new创建对象时，首先对对象属性和初始化块分配内存，并执行默认初始化。如果存在父类，则先为父类对象属和初始化块先分配内存并执行初始化。然后执行父类构造器中的初始化程序，接着才开始对子类的对象属性和初始化块执行初始化。</li>
+</ul>
+</blockquote>
+<p><strong>Tips</strong>：</p>
+<ol>
+<li>在对象初始化阶段，属性和方法均针对子类可以从父类继承过来的属性和方法而言，一般而言，都是针对父类中非private而言的。因为private修饰的为父类所特有的，子类没有继承过来，当new子类时，无须为其分配空间并执行初始化。当然了，父类的构造器子类也是不继承过来的，但构造器另当别论。</li>
+<li>类的初始化只执行一次，当对同一个类new多个对象时，类属性和类初始化块只初始化一次。</li>
+</ol>
+<h2 id="u7EE7_u627F_u4E2D_u7684_u9690_u85CF"><a href="#u7EE7_u627F_u4E2D_u7684_u9690_u85CF" class="headerlink" title="继承中的隐藏"></a>继承中的隐藏</h2><p><strong>隐藏含义</strong>：实际上存在，但是对外不可见。</p>
+<p>Java类具有三种访问控制符：private、protected和public，同时当不写这三个访问控制符时，表现为一种默认的访问控制状态。因此，一共具有四种访问控制级别。</p>
+<blockquote>
+<p>具体访问控制表现如下：</p>
+<ul>
+<li>private修饰的属性或方法为该类所特有，在任何其他类中都不能直接访问；</li>
+<li>default修饰的属性或方法具有包访问特性，同一个包中的其他类可以访问；</li>
+<li>protected修饰的属性或方法在同一个包中的其他类可以访问，同时对于不在同一个包中的子类中也可以访问；</li>
+<li>public修饰的属性或方法外部类中都可以直接访问。</li>
+</ul>
+</blockquote>
+<p>当子类继承父类，子类可以继承父类中具有访问控制权限的属性和方法（一般来说是非private修饰的），对于private修饰的父类所特有的属性和方法，子类是不继承过来的。<br>当子类需要改变继承过来的方法时，也就是常说的重写父类的方法。一旦重写后，父类的此方法对子类来说表现为隐藏。以后子类的对象调用此方法时，都是调用子类重写后的方法，但子类对象中想调用父类原来的此方法时，可以通过如下两种方式：</p>
+<blockquote>
+<ul>
+<li>将子类对象类型强制转化为父类类型，进行调用；</li>
+<li>通过super调用。</li>
+</ul>
+</blockquote>
+<p>同样的，如果在子类中定义父类中相同名称的属性时，父类属性在子类中表现为隐藏。</p>
+<h2 id="u7EE7_u627F_u4E2D_u7684this_u548Csuper"><a href="#u7EE7_u627F_u4E2D_u7684this_u548Csuper" class="headerlink" title="继承中的this和super"></a>继承中的this和super</h2><p>构造器中的<code>this</code>表示当前正在初始化的对象引用，方法中的<code>this</code>表示当前正在调用此方法的对象引用。<code>this</code>具体用法表现在一下几个方面：</p>
+<blockquote>
+<ul>
+<li>当具有多个重载的构造器，且一个构造器需要调用另外一个构造器时，在其第一行使用<code>this（param）</code>形式调用，且只能在第一行；</li>
+<li>当对象中一个方法需要调用本对象中其他方法时，使用this作为主调，也可以不写，实际上默认就是this作为主调；</li>
+<li>当对象属性和方法中的局部变量名称相同时，在该方法中需要显式的使用this作为主调，以表示对象的属性，若不存在此问题，可以不显式的写this。</li>
+</ul>
+</blockquote>
+<p>其实，其中牵涉到的一个问题就是变量的查找规则：先局部变量 -&gt; 当前类中定义的变量 -&gt; 其父类中定义的可以被子类继承的变量 -&gt; 父类…</p>
+<p><code>super</code>表示调用父类中相应的属性和方法。在方法中，若需要调用父类的方法时，也一定要写在第一行。</p>
+<h2 id="u7EE7_u627F_u4E0E_u7EC4_u5408"><a href="#u7EE7_u627F_u4E0E_u7EC4_u5408" class="headerlink" title="继承与组合"></a>继承与组合</h2><p>从单纯的实现效果上看，继承和组合都能达到同样的目的。并且都是实现代码复用的有效方式。但在一般性的概念层次中，两者具有较为明显的差别。</p>
+<blockquote>
+<ul>
+<li>继承表现为一般——特殊的关系，子类是一个特殊的父类，是is-a的关系。父类具有所有子类的一般特性。</li>
+<li>组合表现为整体——部分关系，即has-a关系。在组合中，通过将“部分”单独抽取出来，形成自己的类定义，并且在“整体”</li>
+</ul>
+</blockquote>
+<h2 id="u603B_u7ED3_u4E0E_u5B9E_u6218"><a href="#u603B_u7ED3_u4E0E_u5B9E_u6218" class="headerlink" title="总结与实战"></a>总结与实战</h2><p>啰啰嗦嗦说了这么多的理论，来一些总结和例子吧！</p>
+<p>首先关于继承有以下几个原则：</p>
+<blockquote>
+<ol>
+<li>子类继承了其父类中不是私有的成员变量和成员方法，作为自己的成员变量和方法</li>
+<li>子类中定义的成员变量和父类中定义的成员变量相同时，则父类中的成员变量被隐藏</li>
+<li>子类中定义的成员方法，并且这个成员方法的名字，返回类型，及参数个数和类型与父类的某个成员方法完全相同，则父类的成员方法被覆盖。</li>
+</ol>
+</blockquote>
+<h3 id="u4F8B_1"><a href="#u4F8B_1" class="headerlink" title="例 1"></a>例 1</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> extend;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A1</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getA</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.a;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B1</span> <span class="keyword">extends</span> <span class="title">A1</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a = <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test1</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		B1 b =<span class="keyword">new</span> B1();</span><br><span class="line">		System.out.println(b.getA());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此例中，B1继承了A1， 根据原则2，父类中的int a 变量被隐藏，所以此时如果直接打印：b.a，得到的结果会是2。但是因为B1中没有同名的getA()方法，所以b.getA()中调用的getA()是继承自A1类的，A1类中的getA()调用的是它本身的a(A1.a)，所以输出为： 1</p>
+<h3 id="u4F8B_2"><a href="#u4F8B_2" class="headerlink" title="例 2"></a>例 2</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> extend;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A2</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getA</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.a;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B2</span> <span class="keyword">extends</span> <span class="title">A2</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a = <span class="number">2</span>;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getA</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.a;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test2</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		B2 b = <span class="keyword">new</span> B2();</span><br><span class="line">		System.out.println(b.getA());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>例中与上个例子的不同之处在于，B2类中定义了同名的getA()方法覆盖了A2类中的同名方法，所以这里b.getA()调用的是B2类中的方法，又因为B2中的getA()方法引用的是B2类自身的变量a(B2.a)，所以打印结果为： 2</p>
+<h3 id="u4F8B_3"><a href="#u4F8B_3" class="headerlink" title="例 3"></a>例 3</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> extend;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A3</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getA</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.a;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B3</span> <span class="keyword">extends</span> <span class="title">A3</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">B3</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		a = <span class="number">2</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test3</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		B3 b = <span class="keyword">new</span> B3();</span><br><span class="line">		System.out.println(b.getA());</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此例中，子类（B3）既继承了父类（A3）的变量a，同时也继承了父类的getA()方法，所以B3()中的构造函数对a的赋值实际上是对继承自父类的变量a的赋值。由于没有覆盖，b.getA()调用的也是继承自父类A3的方法。输出结果很显然应该是 ： 2</p>
+<h3 id="u4F8B_4"><a href="#u4F8B_4" class="headerlink" title="例 4"></a>例 4</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> extend;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A4</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getA</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> a;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B4</span> <span class="keyword">extends</span> <span class="title">A4</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a = <span class="number">2</span>;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">B4</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		a = <span class="number">3</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test4</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		B4 b = <span class="keyword">new</span> B4();</span><br><span class="line">		System.out.println(b.getA());</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此例中，子类B4中重新定义了同名的变量a，根据规则（2），A4中的变量a被隐藏，所以B4的构造函数中初始化的是B4类中的a，而由于没有重写方法覆盖getA()，所以b.getA()调用的仍然是A4类（父类）中的getA()方法，父类的getA()中返回的a自然是父类本身的变量a，而父类本身的变量a从初始化后一直没变，就是1，所以打印结果是： 1</p>
+<h3 id="Tips_uFF1A"><a href="#Tips_uFF1A" class="headerlink" title="Tips："></a>Tips：</h3><blockquote>
+<ol>
+<li>如果调用父类方法，则父类方法中引用的变量一定是父类中的变量（如例1)</li>
+<li>如果调用子类方法，那么：如果子类中没有重新定义父类中的某个变量（没有隐藏），而在子类方法中引用了，则引用的是父类的变量；如果在子类中重新定义了变量（实现了隐藏），则引用的是子类本身的变量</li>
+</ol>
+</blockquote>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag">#Java</a>
+          
+            <a href="/tags/继承/" rel="tag">#继承</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/12/09/java-generic/" rel="next" title="Java总结篇：Java泛型">
+                <i class="fa fa-chevron-left"></i> Java总结篇：Java泛型
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+        </div>
+
+        
+
+
+        
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2015/12/09/java-extends/"
+           data-title="Java总结篇：Java继承" data-url="http://firenzeseagle.github.io/2015/12/09/java-extends/">
+      </div>
+    
+  </div>
+
+
+      </div>
+
+      
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="http://7xowla.com1.z0.glb.clouddn.com/11.jpg" alt="FirenzesEagle" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">FirenzesEagle</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">Nothing is true Everything is permitted</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">0</span>
+              <span class="site-state-item-name">分类</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/FirenzesEagle/" target="_blank">
+                  
+                    <i class="fa fa-github"></i> GitHub
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/2096592892" target="_blank">
+                  
+                    <i class="fa fa-weibo"></i> Weibo
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#u7EE7_u627F_u7684_u6982_u5FF5"><span class="nav-number">1.</span> <span class="nav-text">继承的概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u7EE7_u627F_u4E2D_u7684_u521D_u59CB_u5316_u987A_u5E8F"><span class="nav-number">2.</span> <span class="nav-text">继承中的初始化顺序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u7EE7_u627F_u4E2D_u7684_u9690_u85CF"><span class="nav-number">3.</span> <span class="nav-text">继承中的隐藏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u7EE7_u627F_u4E2D_u7684this_u548Csuper"><span class="nav-number">4.</span> <span class="nav-text">继承中的this和super</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u7EE7_u627F_u4E0E_u7EC4_u5408"><span class="nav-number">5.</span> <span class="nav-text">继承与组合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u603B_u7ED3_u4E0E_u5B9E_u6218"><span class="nav-number">6.</span> <span class="nav-text">总结与实战</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#u4F8B_1"><span class="nav-number">6.1.</span> <span class="nav-text">例 1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u4F8B_2"><span class="nav-number">6.2.</span> <span class="nav-text">例 2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u4F8B_3"><span class="nav-number">6.3.</span> <span class="nav-text">例 3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u4F8B_4"><span class="nav-number">6.4.</span> <span class="nav-text">例 4</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tips_uFF1A"><span class="nav-number">6.5.</span> <span class="nav-text">Tips：</span></a></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+      
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2015</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">FirenzesEagle</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+    
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"firenzeseagle"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+    
+     
+
+
+    
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+<script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+<script type="text/javascript" src="/js/motion.js?v=0.4.5.2" id="motion.global"></script>
+
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    motionMiddleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  <script type="text/javascript" src="/js/bootstrap.js"></script>
+
+  
+  
+
+  
+  
+
+</body>
+</html>
