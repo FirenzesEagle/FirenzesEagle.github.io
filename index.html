@@ -284,44 +284,16 @@
 
       
         
-          <span itemprop="articleBody">
-            
-              <p>最近做实验室项目的时候，遇到了这样一个问题：</p>
+          <p>最近做实验室项目的时候，遇到了这样一个问题：</p>
 <blockquote>
-<p>对ArrayList<object>集合进行数据修改操作，通过迭代器查询到某一个符合条件的对象，并直接对对象中的成员变量进行赋值操作之后，集合中的对应元素并没有发生变化。仔细一想，应该是因为并没有对集合中的对象直接进行操作，而实际上是对迭代器产生的拷贝对象进行了操作，所以自然修改不了集合中对应的元素。</object></p>
+<p>对ArrayList<Object>集合进行数据修改操作，通过迭代器查询到某一个符合条件的对象，并直接对对象中的成员变量进行赋值操作之后，集合中的对应元素并没有发生变化。仔细一想，应该是因为并没有对集合中的对象直接进行操作，而实际上是对迭代器产生的拷贝对象进行了操作，所以自然修改不了集合中对应的元素。</p>
 </blockquote>
 <p>所以有必要写个关于拷贝的总结来明确一下拷贝的概念。</p>
-<p>首先来看看浅拷贝和深拷贝的定义：</p>
-<blockquote>
-<ul>
-<li>浅拷贝：使用一个已知实例对新创建实例的成员变量逐个赋值，这个方式被称为浅拷贝。</li>
-<li>深拷贝：当一个类的拷贝构造方法，不仅要复制对象的所有非引用成员变量值，还要为引用类型的成员变量创建新的实例，并且初始化为形式参数实例值。这个方式称为深拷贝。</li>
-</ul>
-</blockquote>
-<p>深拷贝(深复制)和浅拷贝(浅复制)是两个比较通用的概念，尤其在C++语言中，若不弄懂，则会在delete的时候出问题，但是我们在这幸好用的是Java。虽然Java自动管理对象的回收，但对于深拷贝(深复制)和浅拷贝(浅复制)，我们还是要给予足够的重视，因为有时这两个概念往往会给我们带来不小的困惑。</p>
-<p><strong>浅拷贝是指拷贝对象时仅仅拷贝对象本身（包括对象中的基本变量），而不拷贝对象包含的引用指向的对象。深拷贝不仅拷贝对象本身，而且拷贝对象包含的引用指向的所有对象</strong>。</p>
-<p>运行下面的程序，看一看浅拷贝：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> String sex;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">(String name,String sex,<span class="keyword">int</span> age)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.sex = sex;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">(Person p)</span></span>&#123;                   <span class="comment">//拷贝构造方法，复制对象</span></span><br><span class="line">        <span class="keyword">this</span>.name = p.name;</span><br><span class="line">        <span class="keyword">this</span>.sex = p.sex;</span><br><span class="line">        <span class="keyword">this</span>.age = p.age;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上面的对象Person有三个成员变量。<code>name、sex、age</code>。两个构造方法。第二个的参数为该对象，它称为拷贝构造方法，它将创建的新对象初始化为形式参数的实例值，通过它可以实现对象复制功能。</p>
-<p>又有一个对象Asian,如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Asian</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String skin;</span><br><span class="line">    Person person;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Asian</span><span class="params">(String skin,Person person)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.skin = skin;</span><br><span class="line">        <span class="keyword">this</span>.person = person;                    <span class="comment">//引用赋值</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Asian</span><span class="params">(Asian asian)</span></span>&#123;                 <span class="comment">//拷贝构造方法，复制对象</span></span><br><span class="line">        <span class="keyword">this</span>(asian.skin,asian.person);           </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>上面对象也存在着两个成员变量，<code>skin</code> 和<code>Person对象</code><br>对于<code>Person对象</code>有如下：</p>
-<blockquote>
-<p>Person p1 = new Person(“李四”,”mam”,23);<br>Person p2 = new Person(P1);</p>
-</blockquote>
-<p>当调用上面的语句时。P2对象将会对P1进行复制。执行情况如下如下图：</p>
-<p><img src="http://7xowla.com1.z0.glb.clouddn.com/java_copy.gif" alt="copy"></p>
-<p>对于Asian对象有：</p>
-<blockquote>
-<p>Asian a1 = new Asian(“yellow”,new Person(“李四”,”mam”,23));<br>Asian a2 = new Asian(a1);</p>
-</blockquote>
-<p><code>new Asian(a1)</code>执行Asian类的拷贝构造方法，由于对象赋值是引用赋值。使得a1和a2引用同一个对象<br>如下图：</p>
-<p><img src="http://7xowla.com1.z0.glb.clouddn.com/java_copy_0.gif" alt="copy_0"></p>
-<p>当a1执行某条可以改变该值的语句时，那么a1将会通过这个语句也可以改变a2对象的成员变量<br>如果执行以下语句：<code>a2.name = new Person(a1.name)</code><br>这时将会创建一个新的Person对象<br>如下图：</p>
-<p><img src="http://7xowla.com1.z0.glb.clouddn.com/java_copy_1.gif" alt="copy_1"></p>
-<p>本文中是用重写拷贝构造来实现的拷贝，还有一种方式是实现<code>Cloneable</code>接口，这个在 <a href="https://www.baidu.com" target="_blank" rel="external">Java总结篇：使用序列化实现对象的拷贝</a>中再做详细的阐述。</p>
-
-            
-          </span>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/12/16/java-copy/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
