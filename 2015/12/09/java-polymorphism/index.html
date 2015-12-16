@@ -60,7 +60,7 @@
 <meta property="og:description" content="多态，说起来很熟悉，项目中也会经常用到，记得考研复试的时候，导师问我的其中一个问题就是简单介绍下多态，当时不假思索得就说：“多态就是指向子类对象的父类引用，balabala~”，但是，真正研究了多态，才发现原来有这么多的细节。
 多态：多态就是指程序中定义的引用变量所指向的具体类型和通过该引用变量发出的方法调用在编程时并不确定，而是在程序运行期间才确定，即一个引用变量倒底会指向哪个类的实例对象，该引">
 <meta property="og:image" content="http://7xowla.com1.z0.glb.clouddn.com/Polymorphism.png">
-<meta property="og:updated_time" content="2015-12-11T09:08:29.654Z">
+<meta property="og:updated_time" content="2015-12-16T09:18:29.382Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java总结篇：多态">
 <meta name="twitter:description" content="多态，说起来很熟悉，项目中也会经常用到，记得考研复试的时候，导师问我的其中一个问题就是简单介绍下多态，当时不假思索得就说：“多态就是指向子类对象的父类引用，balabala~”，但是，真正研究了多态，才发现原来有这么多的细节。
@@ -312,7 +312,7 @@
 <p>在上面的代码中JNC、JGJ继承Wine，并且重写了drink()、toString()方法，程序运行结果是调用子类中方法，输出JNC、JGJ的名称，这就是多态的表现。不同的对象可以执行相同的行为，但是他们都需要通过自己的实现方式来执行，这就要得益于向上转型了。</p>
 <p>我们都知道所有的类都继承自超类Object，toString()方法也是Object中方法，当我们这样写时：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Object o = <span class="keyword">new</span> JGJ();  </span><br><span class="line">System.out.println(o.toString());</span><br></pre></td></tr></table></figure></p>
 <p>输出的结果是<code>Wine : JGJ</code>。</p>
-<p>Object、Wine、JGJ三者继承链关系是：<code>JGJ—&gt;Wine—&gt;Object</code>。所以我们可以这样说：当子类重写父类的方法被调用时，只有对象继承链中的最末端的方法才会被调用。但是注意如果这样写：</p>
+<p>Object、Wine、JGJ三者继承链关系是：<code>JGJ—&gt;Wine—&gt;Object</code>。所以我们可以这样说：<strong>当子类重写父类的方法被调用时，只有对象继承链中的最末端的方法才会被调用</strong>。但是注意如果这样写：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Object o = <span class="keyword">new</span> Wine();  </span><br><span class="line">System.out.println(o.toString());</span><br></pre></td></tr></table></figure>
 <p>输出的结果应该是Null，因为JGJ并不存在于该对象继承链中。</p>
 <blockquote>
@@ -356,6 +356,10 @@
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/12/16/java-copy/" rel="prev" title="Java总结篇：浅拷贝与深拷贝">
+                Java总结篇：浅拷贝与深拷贝 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -427,7 +431,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">5</span>
+              <span class="site-state-item-count">6</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
