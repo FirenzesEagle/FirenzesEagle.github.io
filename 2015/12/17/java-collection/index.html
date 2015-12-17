@@ -1,0 +1,783 @@
+<!doctype html>
+<html class="theme-next   use-motion ">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Collection,Java," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
+
+
+
+
+
+
+<meta name="description" content="在编写Java程序中，我们最常用的除了八种基本数据类型，String对象外还有一个集合类，在我们的的程序中到处充斥着集合类的身影！Java中集合大家族的成员实在是太丰富了，有常用的ArrayList、HashMap、HashSet，也有不常用的Stack、Queue，有线程安全的Vector、HashTable，也有线程不安全的LinkedList、TreeMap等。
+
+上面的图展示了整个集合大家">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java总结篇：集合综述">
+<meta property="og:url" content="http://firenzeseagle.github.io/2015/12/17/java-collection/index.html">
+<meta property="og:site_name" content="FirenzesEagle's Blog">
+<meta property="og:description" content="在编写Java程序中，我们最常用的除了八种基本数据类型，String对象外还有一个集合类，在我们的的程序中到处充斥着集合类的身影！Java中集合大家族的成员实在是太丰富了，有常用的ArrayList、HashMap、HashSet，也有不常用的Stack、Queue，有线程安全的Vector、HashTable，也有线程不安全的LinkedList、TreeMap等。
+
+上面的图展示了整个集合大家">
+<meta property="og:image" content="http://7xowla.com1.z0.glb.clouddn.com/Collection.png">
+<meta property="og:updated_time" content="2015-12-17T09:25:34.188Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java总结篇：集合综述">
+<meta name="twitter:description" content="在编写Java程序中，我们最常用的除了八种基本数据类型，String对象外还有一个集合类，在我们的的程序中到处充斥着集合类的身影！Java中集合大家族的成员实在是太丰富了，有常用的ArrayList、HashMap、HashSet，也有不常用的Stack、Queue，有线程安全的Vector、HashTable，也有线程不安全的LinkedList、TreeMap等。
+
+上面的图展示了整个集合大家">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'post',
+    motion: true
+  };
+</script>
+
+  <title> Java总结篇：集合综述 | FirenzesEagle's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?a0b64da361ed8906a8963e2988352d20";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">FirenzesEagle's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <form class="site-search-form">
+    <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+  </form>
+
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'yVD-rX-d8gVmN5syvUpx','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Java总结篇：集合综述
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2015-12-17T15:42:44+08:00" content="2015-12-17">
+              2015-12-17
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/12/17/java-collection/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/17/java-collection/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>在编写Java程序中，我们最常用的除了八种基本数据类型，String对象外还有一个集合类，在我们的的程序中到处充斥着集合类的身影！Java中集合大家族的成员实在是太丰富了，有常用的ArrayList、HashMap、HashSet，也有不常用的Stack、Queue，有线程安全的Vector、HashTable，也有线程不安全的LinkedList、TreeMap等。</p>
+<p><img src="http://7xowla.com1.z0.glb.clouddn.com/Collection.png" alt="集合框架"></p>
+<p>上面的图展示了整个集合大家族的成员以及他们之间的关系。下面就上面的各个接口、基类做一些简单的介绍(主要介绍各个集合的特点。区别)，更加详细的介绍会在之后一一讲解。</p>
+<a id="more"></a>
+<h2 id="Collection_u63A5_u53E3"><a href="#Collection_u63A5_u53E3" class="headerlink" title="Collection接口"></a>Collection接口</h2><p>Collection接口是最基本的集合接口，它不提供直接的实现，Java SDK提供的类都是继承自Collection的“子接口”如List和Set。Collection所代表的是一种规则，它所包含的元素都必须遵循一条或者多条规则。如有些允许重复而有些则不能重复、有些必须要按照顺序插入而有些则是散列，有些支持排序但是有些则不支持。</p>
+<p>在Java中所有实现了Collection接口的类都必须提供两套标准的构造函数，一个是无参，用于创建一个空的Collection，一个是带有Collection参数的有参构造函数，用于创建一个新的Collection，这个新的Collection与传入进来的Collection具备相同的元素。</p>
+<h2 id="List_u63A5_u53E3"><a href="#List_u63A5_u53E3" class="headerlink" title="List接口"></a>List接口</h2><p>List接口为Collection直接接口。List所代表的是有序的Collection，即它用某种特定的插入顺序来维护元素顺序。用户可以对列表中每个元素的插入位置进行精确地控制，同时可以根据元素的整数索引（在列表中的位置）访问元素，并搜索列表中的元素。实现List接口的集合主要有：ArrayList、LinkedList、Vector、Stack。</p>
+<h3 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h3><p>ArrayList是一个<strong>动态数组</strong>，也是我们最常用的集合。它允许任何符合规则的元素插入甚至包括null。每一个ArrayList都有一个初始容量（10），该容量代表了数组的大小。随着容器中的元素不断增加，容器的大小也会随着增加。在每次向容器中增加元素的同时都会进行容量检查，当快溢出时，就会进行扩容操作。所以如果我们明确所插入元素的多少，最好指定一个初始容量值，避免过多的进行扩容操作而浪费时间、效率。</p>
+<p>size、isEmpty、get、set、iterator 和 listIterator 操作都以固定时间运行。add 操作以分摊的固定时间运行，也就是说，添加 n 个元素需要 O(n) 时间（由于要考虑到扩容，所以这不只是添加元素会带来分摊固定时间开销那样简单）。</p>
+<p>ArrayList擅长于<strong>随机访问</strong>。同时ArrayList是<strong>非同步</strong>的。</p>
+<h3 id="LinkedList"><a href="#LinkedList" class="headerlink" title="LinkedList"></a>LinkedList</h3><p>同样实现List接口的LinkedList与ArrayList不同，ArrayList是一个动态数组，而LinkedList是一个<strong>双向链表</strong>。所以它除了有ArrayList的基本操作方法外还额外提供了get，remove，insert方法在LinkedList的首部或尾部。</p>
+<p>由于实现的方式不同，LinkedList不能随机访问，它所有的操作都是要按照双重链表的需要执行。在列表中索引的操作将从开头或结尾遍历列表（从靠近指定索引的一端）。这样做的好处就是可以通过较低的代价在List中进行插入和删除操作。</p>
+<p>与ArrayList一样，LinkedList也是<strong>非同步</strong>的。如果多个线程同时访问一个List，则必须自己实现访问同步。一种解决方法是在创建List时构造一个同步的List：</p>
+<blockquote>
+<p>List list = Collections.synchronizedList(new LinkedList(…));</p>
+</blockquote>
+<h3 id="Vector"><a href="#Vector" class="headerlink" title="Vector"></a>Vector</h3><p>与ArrayList相似，但是Vector是同步的。所以说Vector是<strong>线程安全</strong>的<strong>动态数组</strong>。它的操作与ArrayList几乎一样。</p>
+<h3 id="Stack"><a href="#Stack" class="headerlink" title="Stack"></a>Stack</h3><p>Stack继承自Vector，实现一个<strong>后进先出的堆栈</strong>。Stack提供5个额外的方法使得Vector得以被当作堆栈使用。基本的push和pop方法，还有peek方法得到栈顶的元素，empty方法测试堆栈是否为空，search方法检测一个元素在堆栈中的位置。Stack刚创建后是<strong>空栈</strong>。</p>
+<h2 id="Set_u63A5_u53E3"><a href="#Set_u63A5_u53E3" class="headerlink" title="Set接口"></a>Set接口</h2><p>Set是一种不包括重复元素的Collection。它维持它自己的内部排序，所以随机访问没有任何意义。与List一样，它<strong>同样运行null的存在但是仅有一个</strong>。由于Set接口的特殊性，所有传入Set集合中的元素都必须不同，同时要注意任何可变对象，如果在对集合中元素进行操作时，导致e1.equals(e2)==true，则必定会产生某些问题。实现了Set接口的集合有：EnumSet、HashSet、TreeSet。</p>
+<h3 id="EnumSet"><a href="#EnumSet" class="headerlink" title="EnumSet"></a>EnumSet</h3><p>是枚举的专用Set。所有的元素都是枚举类型。</p>
+<h3 id="HashSet"><a href="#HashSet" class="headerlink" title="HashSet"></a>HashSet</h3><p>HashSet堪称查询速度最快的集合，因为其内部是以HashCode来实现的。它内部元素的顺序是由哈希码来决定的，所以它不保证set的迭代顺序；特别是它不保证该顺序恒久不变。</p>
+<h3 id="TreeSet"><a href="#TreeSet" class="headerlink" title="TreeSet"></a>TreeSet</h3><p>基于TreeMap，生成一个<strong>总是处于排序状态的set</strong>，内部以TreeMap来实现。它是使用元素的自然顺序对元素进行排序，或者根据创建Set时提供的<code>Comparator</code>进行排序，具体取决于使用的构造方法。</p>
+<h2 id="Map_u63A5_u53E3"><a href="#Map_u63A5_u53E3" class="headerlink" title="Map接口"></a>Map接口</h2><p>Map与List、Set接口不同，它是由<strong>一系列键值对组成的集合，提供了key到Value的映射</strong>。同时它也没有继承Collection。在Map中它保证了key与value之间的一一对应关系。也就是说一个key对应一个value，所以它不能存在相同的key值，当然value值可以相同。实现map的有：HashMap、TreeMap、HashTable、Properties、EnumMap。</p>
+<h3 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h3><p>以哈希表数据结构实现，查找对象时通过哈希函数计算其位置，它是为快速查询而设计的，其内部定义了一个hash表数组（<code>Entry[] table</code>），元素会通过哈希转换函数将元素的哈希地址转换成数组中存放的索引，如果有冲突，则使用散列链表的形式将所有相同哈希地址的元素串起来，可能通过查看HashMap.Entry的源码它是一个单链表结构。</p>
+<h3 id="TreeMap"><a href="#TreeMap" class="headerlink" title="TreeMap"></a>TreeMap</h3><p>键以某种排序规则排序，内部以<strong>red-black（红-黑）树</strong>数据结构实现，实现了SortedMap接口，没有线程安全的设计。</p>
+<h3 id="HashTable"><a href="#HashTable" class="headerlink" title="HashTable"></a>HashTable</h3><p>也是以哈希表数据结构实现的，解决冲突时与HashMap也一样也是采用了散列链表的形式，不过性能比HashMap要低，线程安全。</p>
+<h2 id="Queue__u961F_u5217"><a href="#Queue__u961F_u5217" class="headerlink" title="Queue 队列"></a>Queue 队列</h2><p>队列，它主要分为两大类，一类是<strong>阻塞式队列</strong>，队列满了以后再插入元素则会抛出异常，主要包括ArrayBlockQueue、PriorityBlockingQueue、LinkedBlockingQueue。另一种队列则是<strong>双端队列</strong>，支持在头、尾两端插入和移除元素，主要包括：ArrayDeque、LinkedBlockingDeque、LinkedList。</p>
+<h2 id="u5F02_u540C_u70B9"><a href="#u5F02_u540C_u70B9" class="headerlink" title="异同点"></a>异同点</h2><h3 id="Vector_u548CArrayList"><a href="#Vector_u548CArrayList" class="headerlink" title="Vector和ArrayList"></a>Vector和ArrayList</h3><blockquote>
+<ul>
+<li>Vector是线程同步的，所以它也是线程安全的，而ArrayList是线程异步的，是不安全的。如果不考虑到线程的安全因素，一般用ArrayList效率比较高。</li>
+<li>如果集合中的元素的数目大于目前集合数组的长度时，Vector增长率为目前数组长度的<strong>100%</strong>，而ArrayList增长率为目前数组长度的<strong>50%</strong>。如过在集合中使用数据量比较大的数据，用vector有一定的优势。</li>
+<li>如果查找一个指定位置的数据，Vector和ArrayList使用的时间是相同的，都是<strong>O(1)</strong>，这个时候使用Vector和ArrayList都可以。而如果移动一个指定位置 <strong>i</strong> 的数据花费的时间为<strong>O(n-i)</strong>，n为总长度，这个时候就应该考虑到使用LinkedList，因为它移动一个指定位置的数据所花费的时间为<strong>O(1)</strong>，而查询一个指定位置的数据时花费的时间为<strong>O(i)</strong>。</li>
+</ul>
+</blockquote>
+<h3 id="ArrayList_u548CLinkedList"><a href="#ArrayList_u548CLinkedList" class="headerlink" title="ArrayList和LinkedList"></a>ArrayList和LinkedList</h3><blockquote>
+<ul>
+<li>ArrayList是实现了基于动态数组的数据结构，LinkedList基于链表的数据结构。</li>
+<li>对于随机访问get和set，ArrayList绝对优于LinkedList，因为LinkedList要移动指针。</li>
+<li>对于新增和删除操作add和remove，若只对单条数据插入或删除，ArrayList的速度优于LinkedList。但若是批量随机的插入删除数据，LinkedList的速度大大优于ArrayList，因为ArrayList每插入一条数据，要移动插入点及之后的所有数据。</li>
+</ul>
+</blockquote>
+<h3 id="HashMap_u4E0ETreeMap"><a href="#HashMap_u4E0ETreeMap" class="headerlink" title="HashMap与TreeMap"></a>HashMap与TreeMap</h3><blockquote>
+<ul>
+<li>HashMap通过hashcode对其内容进行快速查找，而TreeMap中所有的元素都保持着某种固定的顺序，如果你需要得到一个有序的结果你就应该使用TreeMap（HashMap中元素的排列顺序是不固定的）。</li>
+<li>在Map中插入、删除和定位元素，HashMap是最好的选择。但如果您要按自然顺序或自定义顺序遍历键，那么TreeMap会更好。使用HashMap要求添加的键类明确定义了hashCode()和equals()的实现。这个TreeMap没有调优选项，因为该树总处于平衡状态。</li>
+</ul>
+</blockquote>
+<h3 id="HashTable_u4E0EHashMap"><a href="#HashTable_u4E0EHashMap" class="headerlink" title="HashTable与HashMap"></a>HashTable与HashMap</h3><blockquote>
+<ul>
+<li>历史原因：Hashtable是基于陈旧的Dictionary类的，HashMap是Java 1.2引进的Map接口的一个实现 。</li>
+<li>同步性：Hashtable是线程安全的，也就是说是同步的，而HashMap是线程序不安全的，不是同步的 。</li>
+<li>值：只有HashMap可以让你将空值作为一个表的条目的key或value 。</li>
+</ul>
+</blockquote>
+<h2 id="u5BF9_u96C6_u5408_u7684_u9009_u62E9"><a href="#u5BF9_u96C6_u5408_u7684_u9009_u62E9" class="headerlink" title="对集合的选择"></a>对集合的选择</h2><h3 id="u5BF9List_u7684_u9009_u62E9"><a href="#u5BF9List_u7684_u9009_u62E9" class="headerlink" title="对List的选择"></a>对List的选择</h3><blockquote>
+<ul>
+<li>对于随机查询与迭代遍历操作，数组比所有的容器都要快。所以在随机访问中一般使用ArrayList</li>
+<li>LinkedList使用双向链表对元素的增加和删除提供了非常好的支持，而ArrayList执行增加和删除元素需要进行元素位移。</li>
+<li>对于Vector而言，我们一般都是避免使用。</li>
+<li>将ArrayList当做首选，毕竟对于集合元素而已我们都是进行遍历，只有当程序的性能因为List的频繁插入和删除而降低时，再考虑LinkedList。</li>
+</ul>
+</blockquote>
+<h3 id="u5BF9Set_u7684_u9009_u62E9"><a href="#u5BF9Set_u7684_u9009_u62E9" class="headerlink" title="对Set的选择"></a>对Set的选择</h3><blockquote>
+<ul>
+<li>HashSet由于使用HashCode实现，所以在某种程度上来说它的性能永远比TreeSet要好，尤其是进行增加和查找操作。</li>
+<li>虽然TreeSet没有HashSet性能好，但是由于它可以维持元素的排序，所以它还是存在用武之地的。</li>
+</ul>
+</blockquote>
+<h3 id="u5BF9Map_u7684_u9009_u62E9"><a href="#u5BF9Map_u7684_u9009_u62E9" class="headerlink" title="对Map的选择"></a>对Map的选择</h3><blockquote>
+<ul>
+<li>HashMap与HashSet同样，支持快速查询。虽然HashTable速度的速度也不慢，但是在HashMap面前还是稍微慢了些，所以HashMap在查询方面可以取代HashTable。</li>
+<li>由于TreeMap需要维持内部元素的顺序，所以它通常要比HashMap和HashTable慢。</li>
+</ul>
+</blockquote>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Collection/" rel="tag">#Collection</a>
+          
+            <a href="/tags/Java/" rel="tag">#Java</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/12/17/java-serializable/" rel="next" title="Java总结篇：使用序列化实现对象的拷贝">
+                <i class="fa fa-chevron-left"></i> Java总结篇：使用序列化实现对象的拷贝
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+        </div>
+
+        
+
+
+        
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2015/12/17/java-collection/"
+           data-title="Java总结篇：集合综述" data-url="http://firenzeseagle.github.io/2015/12/17/java-collection/">
+      </div>
+    
+  </div>
+
+
+      </div>
+
+      
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="http://7xowla.com1.z0.glb.clouddn.com/11.jpg" alt="FirenzesEagle" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">FirenzesEagle</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">Nothing is true Everything is permitted</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">0</span>
+              <span class="site-state-item-name">分类</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/FirenzesEagle/" target="_blank">
+                  
+                    <i class="fa fa-github"></i> GitHub
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/2096592892" target="_blank">
+                  
+                    <i class="fa fa-weibo"></i> Weibo
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Collection_u63A5_u53E3"><span class="nav-number">1.</span> <span class="nav-text">Collection接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#List_u63A5_u53E3"><span class="nav-number">2.</span> <span class="nav-text">List接口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ArrayList"><span class="nav-number">2.1.</span> <span class="nav-text">ArrayList</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LinkedList"><span class="nav-number">2.2.</span> <span class="nav-text">LinkedList</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vector"><span class="nav-number">2.3.</span> <span class="nav-text">Vector</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Stack"><span class="nav-number">2.4.</span> <span class="nav-text">Stack</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Set_u63A5_u53E3"><span class="nav-number">3.</span> <span class="nav-text">Set接口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#EnumSet"><span class="nav-number">3.1.</span> <span class="nav-text">EnumSet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HashSet"><span class="nav-number">3.2.</span> <span class="nav-text">HashSet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TreeSet"><span class="nav-number">3.3.</span> <span class="nav-text">TreeSet</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Map_u63A5_u53E3"><span class="nav-number">4.</span> <span class="nav-text">Map接口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HashMap"><span class="nav-number">4.1.</span> <span class="nav-text">HashMap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TreeMap"><span class="nav-number">4.2.</span> <span class="nav-text">TreeMap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HashTable"><span class="nav-number">4.3.</span> <span class="nav-text">HashTable</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Queue__u961F_u5217"><span class="nav-number">5.</span> <span class="nav-text">Queue 队列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u5F02_u540C_u70B9"><span class="nav-number">6.</span> <span class="nav-text">异同点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Vector_u548CArrayList"><span class="nav-number">6.1.</span> <span class="nav-text">Vector和ArrayList</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ArrayList_u548CLinkedList"><span class="nav-number">6.2.</span> <span class="nav-text">ArrayList和LinkedList</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HashMap_u4E0ETreeMap"><span class="nav-number">6.3.</span> <span class="nav-text">HashMap与TreeMap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HashTable_u4E0EHashMap"><span class="nav-number">6.4.</span> <span class="nav-text">HashTable与HashMap</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u5BF9_u96C6_u5408_u7684_u9009_u62E9"><span class="nav-number">7.</span> <span class="nav-text">对集合的选择</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#u5BF9List_u7684_u9009_u62E9"><span class="nav-number">7.1.</span> <span class="nav-text">对List的选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u5BF9Set_u7684_u9009_u62E9"><span class="nav-number">7.2.</span> <span class="nav-text">对Set的选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u5BF9Map_u7684_u9009_u62E9"><span class="nav-number">7.3.</span> <span class="nav-text">对Map的选择</span></a></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+      
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2015</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">FirenzesEagle</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+    
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"firenzeseagle"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+    
+     
+
+
+    
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+<script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+<script type="text/javascript" src="/js/motion.js?v=0.4.5.2" id="motion.global"></script>
+
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    motionMiddleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  <script type="text/javascript" src="/js/bootstrap.js"></script>
+
+  
+  
+
+  
+  
+
+</body>
+</html>
