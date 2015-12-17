@@ -52,29 +52,23 @@
 
 
 <meta name="description" content="最近做实验室项目的时候，遇到了这样一个问题：
-
 对ArrayList集合进行数据修改操作，通过迭代器查询到某一个符合条件的对象，并直接对对象中的成员变量进行赋值操作之后，集合中的对应元素并没有发生变化。仔细一想，应该是因为并没有对集合中的对象直接进行操作，而实际上是对迭代器产生的拷贝对象进行了操作，所以自然修改不了集合中对应的元素。
-
 所以有必要写个关于拷贝的总结来明确一下拷贝的概念。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java总结篇：浅拷贝与深拷贝">
 <meta property="og:url" content="http://firenzeseagle.github.io/2015/12/16/java-copy/index.html">
 <meta property="og:site_name" content="FirenzesEagle's Blog">
 <meta property="og:description" content="最近做实验室项目的时候，遇到了这样一个问题：
-
 对ArrayList集合进行数据修改操作，通过迭代器查询到某一个符合条件的对象，并直接对对象中的成员变量进行赋值操作之后，集合中的对应元素并没有发生变化。仔细一想，应该是因为并没有对集合中的对象直接进行操作，而实际上是对迭代器产生的拷贝对象进行了操作，所以自然修改不了集合中对应的元素。
-
 所以有必要写个关于拷贝的总结来明确一下拷贝的概念。">
 <meta property="og:image" content="http://7xowla.com1.z0.glb.clouddn.com/java_copy.gif">
 <meta property="og:image" content="http://7xowla.com1.z0.glb.clouddn.com/java_copy_0.gif">
 <meta property="og:image" content="http://7xowla.com1.z0.glb.clouddn.com/java_copy_1.gif">
-<meta property="og:updated_time" content="2015-12-16T14:00:42.646Z">
+<meta property="og:updated_time" content="2015-12-17T01:58:08.664Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java总结篇：浅拷贝与深拷贝">
 <meta name="twitter:description" content="最近做实验室项目的时候，遇到了这样一个问题：
-
 对ArrayList集合进行数据修改操作，通过迭代器查询到某一个符合条件的对象，并直接对对象中的成员变量进行赋值操作之后，集合中的对应元素并没有发生变化。仔细一想，应该是因为并没有对集合中的对象直接进行操作，而实际上是对迭代器产生的拷贝对象进行了操作，所以自然修改不了集合中对应的元素。
-
 所以有必要写个关于拷贝的总结来明确一下拷贝的概念。">
 
 
@@ -289,9 +283,7 @@
 
       
         <span itemprop="articleBody"><p>最近做实验室项目的时候，遇到了这样一个问题：</p>
-<blockquote>
 <p>对ArrayList<object>集合进行数据修改操作，通过迭代器查询到某一个符合条件的对象，并直接对对象中的成员变量进行赋值操作之后，集合中的对应元素并没有发生变化。仔细一想，应该是因为并没有对集合中的对象直接进行操作，而实际上是对迭代器产生的拷贝对象进行了操作，所以自然修改不了集合中对应的元素。</object></p>
-</blockquote>
 <p>所以有必要写个关于拷贝的总结来明确一下拷贝的概念。</p>
 <a id="more"></a>
 <p>首先来看看浅拷贝和深拷贝的定义：</p>
