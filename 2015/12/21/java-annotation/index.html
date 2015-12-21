@@ -1,0 +1,899 @@
+<!doctype html>
+<html class="theme-next   use-motion ">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Annotation,Java," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
+
+
+
+
+
+
+<meta name="description" content="在曾经的岁月里，Java和XML是如此的“恩爱”，许多人认为Java是跨平台的语言，而XML是跨平台的数据交换格式，所以Java和XML应该是天作之合。在这种潮流下，以前的Java框架不约而同地选择了XML作为配置文件。时至今日，也许是受Rails框架的启发，现在的Java框架又都开始对XML配置方式“弃置不顾”了，几乎所有的主流Java框架都打算支持“零配置”特性，比如J2EE的Struts2、">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java总结篇：注解">
+<meta property="og:url" content="http://firenzeseagle.github.io/2015/12/21/java-annotation/index.html">
+<meta property="og:site_name" content="FirenzesEagle's Blog">
+<meta property="og:description" content="在曾经的岁月里，Java和XML是如此的“恩爱”，许多人认为Java是跨平台的语言，而XML是跨平台的数据交换格式，所以Java和XML应该是天作之合。在这种潮流下，以前的Java框架不约而同地选择了XML作为配置文件。时至今日，也许是受Rails框架的启发，现在的Java框架又都开始对XML配置方式“弃置不顾”了，几乎所有的主流Java框架都打算支持“零配置”特性，比如J2EE的Struts2、">
+<meta property="og:image" content="http://7xowla.com1.z0.glb.clouddn.com/Annotation.jpg">
+<meta property="og:updated_time" content="2015-12-21T09:11:50.919Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java总结篇：注解">
+<meta name="twitter:description" content="在曾经的岁月里，Java和XML是如此的“恩爱”，许多人认为Java是跨平台的语言，而XML是跨平台的数据交换格式，所以Java和XML应该是天作之合。在这种潮流下，以前的Java框架不约而同地选择了XML作为配置文件。时至今日，也许是受Rails框架的启发，现在的Java框架又都开始对XML配置方式“弃置不顾”了，几乎所有的主流Java框架都打算支持“零配置”特性，比如J2EE的Struts2、">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'post',
+    motion: true
+  };
+</script>
+
+  <title> Java总结篇：注解 | FirenzesEagle's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?a0b64da361ed8906a8963e2988352d20";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">FirenzesEagle's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <form class="site-search-form">
+    <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+  </form>
+
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'yVD-rX-d8gVmN5syvUpx','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Java总结篇：注解
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2015-12-21T17:08:34+08:00" content="2015-12-21">
+              2015-12-21
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/12/21/java-annotation/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/21/java-annotation/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>在曾经的岁月里，Java和XML是如此的“恩爱”，许多人认为Java是跨平台的语言，而XML是跨平台的数据交换格式，所以Java和XML应该是天作之合。在这种潮流下，以前的Java框架不约而同地选择了XML作为配置文件。<br>时至今日，也许是受Rails框架的启发，现在的Java框架又都开始对XML配置方式“弃置不顾”了，几乎所有的主流Java框架都打算支持“零配置”特性，比如J2EE的Struts2、Hibernate、Spring等，都开始支持使用Annotation来代替XML配置文件。<br>在这里，我们就来聊聊Annotation（注解）这一问题。</p>
+<a id="more"></a>
+<h2 id="u57FA_u672C_u6982_u5FF5"><a href="#u57FA_u672C_u6982_u5FF5" class="headerlink" title="基本概念"></a>基本概念</h2><h3 id="u4EC0_u4E48_u662F_u6CE8_u89E3_uFF08Annotation_uFF09"><a href="#u4EC0_u4E48_u662F_u6CE8_u89E3_uFF08Annotation_uFF09" class="headerlink" title="什么是注解（Annotation）"></a>什么是注解（Annotation）</h3><p><strong>Annotation（注解）就是Java提供了一种元程序中的元素关联任何信息和着任何元数据（metadata）的途径和方法</strong>。Annotion(注解)是一个接口，程序可以通过反射来获取指定程序元素的Annotion对象，然后通过Annotion对象来获取注解里面的元数据。</p>
+<p>Annotation是JDK5.0及以后版本引入的。它可以用于创建文档，跟踪代码中的依赖性，甚至执行基本编译时检查。从某些方面看，Annotation就像修饰符一样被使用，并应用于包、类 型、构造方法、方法、成员变量、参数、本地变量的声明中。这些信息被存储在Annotation的<code>name=value</code>结构对中。</p>
+<p>Annotation的成员在Annotation类型中以无参数的方法的形式被声明。其方法名和返回值定义了该成员的名字和类型。在此有一个特定的默认语法：允许声明任何Annotation成员的默认值：一个Annotation可以将<code>name=value对</code>作为没有定义默认值的Annotation成员的值，当然也可以使用<code>name=value对</code>来覆盖其它成员默认值。这一点有些近似类的继承特性，父类的构造函数可以作为子类的默认构造函数，但是也可以被子类覆盖。</p>
+<p>Annotation能被用来为某个程序元素（类、方法、成员变量等）关联任何的信息。需要注意的是，这里存在着一个基本的规则：<strong>Annotation不能影响程序代码的执行，无论增加、删除 Annotation，代码都始终如一的执行</strong>。另外，尽管一些annotation通过Java的反射api方法在运行时被访问，而Java语言解释器在工作时忽略了这些Annotation。正是由于Java虚拟机忽略了Annotation，导致了Annotation类型在代码中是<strong>“不起作用”</strong>的； 只有通过某种配套的工具才会对Annotation类型中的信息进行访问和处理。本文中将涵盖标准的<code>Annotation</code>和<code>meta-annotation</code>类型，陪伴这些Annotation类型的工具是Java编译器（当然要以某种特殊的方式处理它们）。</p>
+<h3 id="u4EC0_u4E48_u662Fmetadata_uFF08_u5143_u6570_u636E_uFF09_uFF1A"><a href="#u4EC0_u4E48_u662Fmetadata_uFF08_u5143_u6570_u636E_uFF09_uFF1A" class="headerlink" title="什么是metadata（元数据）："></a>什么是metadata（元数据）：</h3><p>元数据从metadata一词译来，就是“关于数据的数据”的意思。</p>
+<p>元数据的功能作用有很多，比如：你可能用过Javadoc的注释自动生成文档。这就是元数据功能的一种。总的来说，元数据可以用来创建文档，跟踪代码的依赖性，执行编译时格式检查，代替已有的配置文件。如果要对于元数据的作用进行分类，目前还没有明确的定义，不过我们可以根据它所起的作用，大致可分为三类：</p>
+<blockquote>
+<ol>
+<li>编写文档：通过代码里标识的元数据生成文档</li>
+<li>代码分析：通过代码里标识的元数据对代码进行分析</li>
+<li>编译检查：通过代码里标识的元数据让编译器能实现基本的编译检查</li>
+</ol>
+</blockquote>
+<p>在Java中元数据以标签的形式存在于Java代码中，元数据标签的存在并不影响程序代码的编译和执行，它只是被用来生成其它的文件或针在运行时知道被运行代码的描述信息。</p>
+<p>综上所述：</p>
+<blockquote>
+<ol>
+<li>元数据以标签的形式存在于Java代码中。</li>
+<li>元数据描述的信息是类型安全的，即元数据内部的字段都是有明确类型的。</li>
+<li>元数据需要编译器之外的工具额外的处理用来生成其它的程序部件。</li>
+<li>元数据可以只存在于Java源代码级别，也可以存在于编译之后的Class文件内部。</li>
+</ol>
+</blockquote>
+<h3 id="Annotation_u548CAnnotation_u7C7B_u578B"><a href="#Annotation_u548CAnnotation_u7C7B_u578B" class="headerlink" title="Annotation和Annotation类型"></a>Annotation和Annotation类型</h3><p>Annotation：</p>
+<blockquote>
+<p>Annotation使用了在<code>Java5.0</code>所带来的新语法，它的行为十分类似public、final这样的修饰符。每个Annotation具有一个名字和成员个数&gt;=0。每个Annotation的成员具有被称为<code>name=value对</code>的名字和值（就像<code>Javabean</code>一样），name=value装载了Annotation的信息。</p>
+</blockquote>
+<p>Annotation类型：</p>
+<blockquote>
+<p>Annotation类型定义了Annotation的名字、类型、成员默认值。一个Annotation类型可以说是一个特殊的Java接口，它的成员变量是受限制的，而声明Annotation类型时需要使用新语法。当我们通过Java反射api访问Annotation时，返回值将是一个实现了该 Annotation类型接口的对象，通过访问这个对象我们能方便的访问到其Annotation成员。后面的章节将提到在<code>Java5.0</code>的<code>java.lang</code>包里包含的3个标准Annotation类型。</p>
+</blockquote>
+<h3 id="u6CE8_u89E3_u7684_u5206_u7C7B"><a href="#u6CE8_u89E3_u7684_u5206_u7C7B" class="headerlink" title="注解的分类"></a>注解的分类</h3><p>根据注解参数的个数，我们可以将注解分为三类：</p>
+<blockquote>
+<ol>
+<li>标记注解：一个没有成员定义的Annotation类型被称为标记注解。这种Annotation类型仅使用自身的存在与否来为我们提供信息。比如后面的系统注解@Override。</li>
+<li>单值注解</li>
+<li>完整注解　　</li>
+</ol>
+</blockquote>
+<p>根据注解使用方法和用途，我们可以将Annotation分为三类：</p>
+<blockquote>
+<ol>
+<li>JDK内置系统注解</li>
+<li>元注解</li>
+<li>自定义注解</li>
+</ol>
+</blockquote>
+<h3 id="u7CFB_u7EDF_u5185_u7F6E_u6807_u51C6_u6CE8_u89E3"><a href="#u7CFB_u7EDF_u5185_u7F6E_u6807_u51C6_u6CE8_u89E3" class="headerlink" title="系统内置标准注解"></a>系统内置标准注解</h3><p>注解的语法比较简单，除了@符号的使用外，他基本与Java固有的语法一致，JavaSE中内置三个标准注解，定义在<code>java.lang</code>中：</p>
+<blockquote>
+<ul>
+<li>@Override：用于修饰此方法覆盖了父类的方法;</li>
+<li>@Deprecated：用于修饰已经过时的方法;</li>
+<li>@SuppressWarnnings:用于通知Java编译器禁止特定的编译警告。</li>
+</ul>
+</blockquote>
+<p>下面我们依次看看三个内置标准注解的作用和使用场景。</p>
+<h4 id="@Override__u9650_u5B9A_u91CD_u5199_u7236_u7C7B_u65B9_u6CD5"><a href="#@Override__u9650_u5B9A_u91CD_u5199_u7236_u7C7B_u65B9_u6CD5" class="headerlink" title="@Override 限定重写父类方法"></a>@Override 限定重写父类方法</h4><p>@Override 是一个标记注解类型，它被用作标注方法。它说明了被标注的方法重载了父类的方法，起到了<strong>断言</strong>的作用。如果我们使用了这种Annotation在一个没有覆盖父类方法的方法时，Java编译器将以一个编译错误来警示。这个Annotaton常常在我们试图覆盖父类方法而确又写错了方法名时发挥威力。使用方法极其简单：在使用此annotation时只要在被修饰的方法前面加上@Override即可。下面的代码是一个使用@Override修饰一个企图重载父类的displayName()方法，而又存在拼写错误的实例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Fruit</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">displayName</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"水果的名字是：*****"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Orange</span> <span class="keyword">extends</span> <span class="title">Fruit</span> </span>&#123;</span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">displayName</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"水果的名字是：桔子"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Apple</span> <span class="keyword">extends</span> <span class="title">Fruit</span> </span>&#123;</span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">displayname</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"水果的名字是：苹果"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">--------------------</span><br><span class="line">Error Message:</span><br><span class="line"><span class="function">The method <span class="title">displayname</span><span class="params">()</span> of type Apple must override or implement a supertype method</span></span><br></pre></td></tr></table></figure>
+<p>Orange 类编译不会有任何问题，Apple 类在编译的时候会提示相应的错误。@Override注解只能用于方法，不能用于其他程序元素。</p>
+<h4 id="@Deprecated__u6807_u8BB0_u5DF2_u8FC7_u65F6"><a href="#@Deprecated__u6807_u8BB0_u5DF2_u8FC7_u65F6" class="headerlink" title="@Deprecated 标记已过时"></a>@Deprecated 标记已过时</h4><p>Deprecated也是一个标记注解。当一个类型或者类型成员使用@Deprecated修饰的话，编译器将不鼓励使用这个被标注的程序元素。而且这种修饰具有一定的 “延续性”：<strong>如果我们在代码中通过继承或者覆盖的方式使用了这个过时的类型或者成员，虽然继承或者覆盖后的类型或者成员并不是被声明为 @Deprecated，但编译器仍然要报警</strong>。</p>
+<p><strong>值得注意</strong></p>
+<blockquote>
+<p>@Deprecated这个Annotation类型和Javadoc中的 @deprecated这个tag是有区别的：</p>
+<p>前者是java编译器识别的，而后者是被javadoc工具所识别用来生成文档（包含程序成员为什么已经过 时、它应当如何被禁止或者替代的描述）。</p>
+</blockquote>
+<p>在<code>Java5.0</code>，Java编译器仍然象其从前版本那样寻找@deprecated这个<code>Javadoc tag</code>，并使用它们产生警告信息。但是这种状况将在后续版本中改变，我们应在现在就开始使用@Deprecated来修饰过时的方法而不是 @deprecated <code>Javadoc tag</code>。</p>
+<p>下面一段程序中使用了@Deprecated注解标示方法过期，同时在方法注释中用@deprecated tag 标示该方法已经过时，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AppleService</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">displayName</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"水果的名字是：苹果"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * <span class="doctag">@deprecated</span> 该方法已经过期，不推荐使用</span><br><span class="line">     */</span></span><br><span class="line">    <span class="annotation">@Deprecated</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showTaste</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"水果的苹果的口感是：脆甜"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showTaste</span><span class="params">(<span class="keyword">int</span> typeId)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(typeId==<span class="number">1</span>)&#123;</span><br><span class="line">            System.out.println(<span class="string">"水果的苹果的口感是：酸涩"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(typeId==<span class="number">2</span>)&#123;</span><br><span class="line">            System.out.println(<span class="string">"水果的苹果的口感是：绵甜"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            System.out.println(<span class="string">"水果的苹果的口感是：脆甜"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FruitRun</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * <span class="doctag">@param</span> args</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Apple apple=<span class="keyword">new</span> Apple();</span><br><span class="line">        apple.displayName();    </span><br><span class="line"></span><br><span class="line">        AppleService appleService=<span class="keyword">new</span> AppleService();</span><br><span class="line">        appleService.showTaste();</span><br><span class="line">        appleService.showTaste(<span class="number">0</span>);</span><br><span class="line">        appleService.showTaste(<span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>AppleService类的<code>showTaste()</code> 方法被@Deprecated标注为过时方法，在FruitRun类中使用的时候，编译器会给出该方法已过期，不推荐使用的提示。</p>
+<h4 id="@SuppressWarnnings__u6291_u5236_u7F16_u8BD1_u5668_u8B66_u544A"><a href="#@SuppressWarnnings__u6291_u5236_u7F16_u8BD1_u5668_u8B66_u544A" class="headerlink" title="@SuppressWarnnings 抑制编译器警告"></a>@SuppressWarnnings 抑制编译器警告</h4><p>@SuppressWarnings 被用于有选择的关闭编译器对类、方法、成员变量、变量初始化的警告。在<code>Java5.0</code>，sun提供的javac编译器为我们提供了-Xlint选项来使编译器对合法的程序代码提出警告，此种警告从某种程度上代表了程序错误。例如当我们使用一个<code>generic collection</code>类而又没有提供它的类型时，编译器将提示出<code>&quot;unchecked warning&quot;</code>的警告。通常当这种情况发生时，我们就需要查找引起警告的代码。如果它真的表示错误，我们就需要纠正它。例如如果警告信息表明我们代码中的switch语句没有覆盖所有可能的case，那么我们就应增加一个默认的case来避免这种警告。</p>
+<p>有时我们无法避免这种警告，例如，我们使用必须和非generic的旧代码交互的<code>generic collection</code>类时，我们不能避免这个<code>unchecked warning</code>。此时@SuppressWarning就要派上用场了，在调用的方法前增加@SuppressWarnings修饰，告诉编译器停止对此方法的警告。</p>
+<p>@SuppressWarning不是一个标记注解。它有一个类型为String[]的成员，这个成员的值为被禁止的警告名。对于javac编译器来讲，被-Xlint选项有效的警告 名也同样对@SuppressWarings有效，同时编译器忽略掉无法识别的警告名。</p>
+<p>Annotation语法允许在Annotation名后跟括号，括号中是使用逗号分割的<code>name=value对</code>用于为Annotation的成员赋值。实例如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FruitService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@SuppressWarnings</span>(value=&#123; <span class="string">"rawtypes"</span>, <span class="string">"unchecked"</span> &#125;)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span>  List&lt;Fruit&gt; <span class="title">getFruitList</span><span class="params">()</span></span>&#123;</span><br><span class="line">        List&lt;Fruit&gt; fruitList=<span class="keyword">new</span> ArrayList();</span><br><span class="line">        <span class="keyword">return</span> fruitList;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@SuppressWarnings</span>(&#123; <span class="string">"rawtypes"</span>, <span class="string">"unchecked"</span> &#125;)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span>  List&lt;Fruit&gt; <span class="title">getFruit</span><span class="params">()</span></span>&#123;</span><br><span class="line">        List&lt;Fruit&gt; fruitList=<span class="keyword">new</span> ArrayList();</span><br><span class="line">        <span class="keyword">return</span> fruitList;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@SuppressWarnings</span>(<span class="string">"unused"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        List&lt;String&gt; strList=<span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个例子中<code>SuppressWarnings annotation</code>类型只定义了一个单一的成员，所以只有一个简单的<code>value={...}</code>作为<code>name=value对</code>。又由于成员值是一个数组，故使用大括号来声明数组值。<br>注意：</p>
+<blockquote>
+<p>我们可以在下面的情况中缩写annotation：</p>
+<p>当annotation只有单一成员，并成员命名为”value=”。这时可以省去”value=”。比如将上面方法<code>getFruit()</code>的<code>SuppressWarnings annotation</code>就是缩写的。</p>
+</blockquote>
+<p>SuppressWarnings注解的常见参数值的简单说明：</p>
+<blockquote>
+<ol>
+<li>deprecation：使用了不赞成使用的类或方法时的警告；</li>
+<li>unchecked：执行了未检查的转换时的警告，例如当使用集合时没有用泛型 (Generics) 来指定集合保存的类型;</li>
+<li>fallthrough：当 Switch 程序块直接通往下一种情况而没有 Break 时的警告;</li>
+<li>path：在类路径、源文件路径等中有不存在的路径时的警告;</li>
+<li>serial：当在可序列化的类上缺少 serialVersionUID 定义时的警告;</li>
+<li>finally：任何 finally 子句不能正常完成时的警告;</li>
+<li>all：关于以上所有情况的警告。</li>
+</ol>
+</blockquote>
+<h2 id="u81EA_u5B9A_u4E49_u6CE8_u89E3"><a href="#u81EA_u5B9A_u4E49_u6CE8_u89E3" class="headerlink" title="自定义注解"></a>自定义注解</h2><p>要深入学习注解，我们就必须能定义自己的注解，并使用注解，在定义自己的注解之前，我们就必须要了解Java为我们提供的元注解和相关定义注解的语法。</p>
+<h3 id="u5143_u6CE8_u89E3"><a href="#u5143_u6CE8_u89E3" class="headerlink" title="元注解"></a>元注解</h3><p>元注解的作用就是<strong>负责注解其他注解</strong>。Java5.0定义了4个标准的<code>meta-annotation</code>类型，它们被用来提供对其它Annotation类型作说明。</p>
+<blockquote>
+<p>Java5.0定义的元注解：</p>
+<ol>
+<li>@Target,</li>
+<li>@Retention,</li>
+<li>@Documented,</li>
+<li>@Inherited</li>
+</ol>
+</blockquote>
+<p>这些类型和它们所支持的类在<code>java.lang.annotation</code>包中可以找到。下面我们看一下每个元注解的作用和相应分参数的使用说明。</p>
+<h4 id="@Target"><a href="#@Target" class="headerlink" title="@Target"></a>@Target</h4><p>@Target说明了Annotation所修饰的对象范围：Annotation可被用于 packages、types（类、接口、枚举、Annotation类型）、类型成员（方法、构造方法、成员变量、枚举值）、方法参数和本地变量（如循环变量、catch参数）。在Annotation类型的声明中使用了target可更加明晰其修饰的目标。</p>
+<p>作用：用于描述注解的使用范围（即：被描述的注解可以用在什么地方）</p>
+<blockquote>
+<p>取值(ElementType)有：</p>
+<ol>
+<li>CONSTRUCTOR：用于描述构造器</li>
+<li>FIELD：用于描述域</li>
+<li>LOCAL_VARIABLE：用于描述局部变量</li>
+<li>METHOD：用于描述方法</li>
+<li>PACKAGE：用于描述包</li>
+<li>PARAMETER：用于描述参数</li>
+<li>TYPE：用于描述类、接口(包括注解类型) 或enum声明</li>
+</ol>
+</blockquote>
+<p>使用实例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Target</span>(ElementType.TYPE)</span><br><span class="line"><span class="keyword">public</span> <span class="annotation">@interface</span> Table &#123;</span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * 数据表名称注解，默认值为类名称</span><br><span class="line">     * <span class="doctag">@return</span></span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">tableName</span><span class="params">()</span> <span class="keyword">default</span> "className"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="annotation">@Target</span>(ElementType.FIELD)</span><br><span class="line"><span class="keyword">public</span> <span class="annotation">@interface</span> NoDBColumn &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注解Table 可以用于注解类、接口(包括注解类型) 或enum声明，而注解NoDBColumn仅可用于注解类的成员变量。</p>
+<h4 id="@Retention"><a href="#@Retention" class="headerlink" title="@Retention"></a>@Retention</h4><p>@Retention定义了该Annotation被保留的时间长短：某些Annotation仅出现在源代码中，而被编译器丢弃；而另一些却被编译在class文件中；编译在class文件中的Annotation可能会被虚拟机忽略，而另一些在class被装载时将被读取（请注意并不影响class的执行，因为Annotation与class在使用上是被分离的）。使用这个<code>meta-annotation</code>可以对Annotation的“生命周期”限制。</p>
+<p>作用：表示需要在什么级别保存该注释信息，用于描述注解的生命周期（即：被描述的注解在什么范围内有效）</p>
+<blockquote>
+<p>取值（RetentionPoicy）有：</p>
+<ol>
+<li>SOURCE：在源文件中有效（即源文件保留）</li>
+<li>CLASS：在class文件中有效（即class保留）</li>
+<li>RUNTIME：在运行时有效（即运行时保留）</li>
+</ol>
+</blockquote>
+<p><code>Retention meta-annotation</code>类型有唯一的value作为成员，它的取值来自java.lang.annotation.RetentionPolicy的枚举类型值。具体实例如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Target</span>(ElementType.FIELD)</span><br><span class="line"><span class="annotation">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="keyword">public</span> <span class="annotation">@interface</span> Column &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">name</span><span class="params">()</span> <span class="keyword">default</span> "fieldName"</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">setFuncName</span><span class="params">()</span> <span class="keyword">default</span> "setField"</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getFuncName</span><span class="params">()</span> <span class="keyword">default</span> "getField"</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">defaultDBValue</span><span class="params">()</span> <span class="keyword">default</span> <span class="keyword">false</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Column注解的的<code>RetentionPolicy</code>的属性值是<code>RUNTIME</code>,这样注解处理器可以通过反射，获取到该注解的属性值，从而去做一些运行时的逻辑处理。</p>
+<h4 id="@Documented"><a href="#@Documented" class="headerlink" title="@Documented"></a>@Documented</h4><p>@Documented用于描述其它类型的Annotation应该被作为被标注的程序成员的公共API，因此可以被例如<code>Javadoc</code>此类的工具文档化。Documented是一个标记注解，没有成员。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Target</span>(ElementType.FIELD)</span><br><span class="line"><span class="annotation">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="annotation">@Documented</span></span><br><span class="line"><span class="keyword">public</span> <span class="annotation">@interface</span> Column &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">name</span><span class="params">()</span> <span class="keyword">default</span> "fieldName"</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">setFuncName</span><span class="params">()</span> <span class="keyword">default</span> "setField"</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getFuncName</span><span class="params">()</span> <span class="keyword">default</span> "getField"</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">defaultDBValue</span><span class="params">()</span> <span class="keyword">default</span> <span class="keyword">false</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="@Inherited"><a href="#@Inherited" class="headerlink" title="@Inherited"></a>@Inherited</h4><p>@Inherited 元注解是一个标记注解，@Inherited阐述了某个被标注的类型是被继承的。如果一个使用了@Inherited修饰的Annotation类型被用于一个class，则这个Annotation将被用于该class的子类。</p>
+<p>注意：<code>@Inherited annotation</code>类型是被标注过的class的子类所继承。类并不从它所实现的接口继承Annotation，方法并不从它所重载的方法继承Annotation。</p>
+<p>当<code>@Inherited annotation</code>类型标注的annotation的Retention是<code>RetentionPolicy.RUNTIME</code>，则反射API增强了这种继承性。如果我们使用<code>java.lang.reflect</code>去查询一个<code>@Inherited annotation</code>类型的Annotation时，反射代码检查将展开工作：检查class和其父类，直到发现指定的Annotation类型被发现，或者到达类继承结构的顶层。</p>
+<p>实例代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> *</span><br><span class="line"> * <span class="doctag">@author</span> FirenzesEagle</span><br><span class="line"> *</span><br><span class="line"> */</span></span><br><span class="line"><span class="annotation">@Inherited</span></span><br><span class="line"><span class="keyword">public</span> <span class="annotation">@interface</span> Greeting &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">enum</span> FontColor&#123; BULE,RED,GREEN&#125;;</span><br><span class="line">    <span class="function">String <span class="title">name</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function">FontColor <span class="title">fontColor</span><span class="params">()</span> <span class="keyword">default</span> FontColor.GREEN</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="u81EA_u5B9A_u4E49_u6CE8_u89E3-1"><a href="#u81EA_u5B9A_u4E49_u6CE8_u89E3-1" class="headerlink" title="自定义注解"></a>自定义注解</h3><p>使用@interface自定义注解时，自动继承了<code>java.lang.annotation.Annotation</code>接口，由编译程序自动完成其他细节。在定义注解时，不能继承其他的注解或接口。@interface用来声明一个注解，其中的每一个方法实际上是声明了一个配置参数。方法的名称就是参数的名称，返回值类型就是参数的类型（返回值类型只能是基本类型、Class、String、enum）。可以通过default来声明参数的默认值。</p>
+<p>定义注解格式：</p>
+<blockquote>
+<p>public @interface 注解名 {定义体}</p>
+</blockquote>
+<p>注解参数的可支持数据类型：</p>
+<blockquote>
+<ol>
+<li>所有基本数据类型（int,float,boolean,byte,double,char,long,short)</li>
+<li>String类型</li>
+<li>Class类型</li>
+<li>enum类型</li>
+<li>Annotation类型</li>
+<li>以上所有类型的数组</li>
+</ol>
+</blockquote>
+<p>Annotation类型里面的参数该怎么设定:</p>
+<blockquote>
+<ol>
+<li>只能用public或默认(default)这两个访问权修饰。例如<code>String value();</code>，这里把方法设为defaul默认类型</li>
+<li>参数成员只能用基本类型<code>byte,short,char,int,long,float,double,boolean</code>八种基本数据类型和<code>String,Enum,Class,annotations</code>等数据类型,以及这一些类型的数组。例如<code>String value();</code>，这里的参数成员就为String;　　</li>
+<li>如果只有一个参数成员，最好把参数名称设为<code>value</code>,后加小括号。例：下面的例子FruitName注解就只有一个参数成员。</li>
+</ol>
+</blockquote>
+<p>简单的自定义注解和使用注解实例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> annotation;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Documented;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.ElementType;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Retention;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.RetentionPolicy;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Target;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * 水果名称注解</span><br><span class="line"> * <span class="doctag">@author</span> FirenzesEagle</span><br><span class="line"> *</span><br><span class="line"> */</span></span><br><span class="line"><span class="annotation">@Target</span>(ElementType.FIELD)</span><br><span class="line"><span class="annotation">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="annotation">@Documented</span></span><br><span class="line"><span class="keyword">public</span> <span class="annotation">@interface</span> FruitName &#123;</span><br><span class="line">    <span class="function">String <span class="title">value</span><span class="params">()</span> <span class="keyword">default</span> ""</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> annotation;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Documented;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.ElementType;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Retention;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.RetentionPolicy;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Target;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * 水果颜色注解</span><br><span class="line"> * <span class="doctag">@author</span> FirenzesEagle</span><br><span class="line"> *</span><br><span class="line"> */</span></span><br><span class="line"><span class="annotation">@Target</span>(ElementType.FIELD)</span><br><span class="line"><span class="annotation">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="annotation">@Documented</span></span><br><span class="line"><span class="keyword">public</span> <span class="annotation">@interface</span> FruitColor &#123;</span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * 颜色枚举</span><br><span class="line">     * <span class="doctag">@author</span> FirenzesEagle</span><br><span class="line">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">enum</span> Color&#123;BULE,RED,GREEN&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * 颜色属性</span><br><span class="line">     * <span class="doctag">@return</span></span><br><span class="line">     */</span></span><br><span class="line">    <span class="function">Color <span class="title">fruitColor</span><span class="params">()</span> <span class="keyword">default</span> Color.GREEN</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> annotation;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> annotation.FruitColor.Color;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Apple</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@FruitName</span>(<span class="string">"Apple"</span>)</span><br><span class="line">    <span class="keyword">private</span> String appleName;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@FruitColor</span>(fruitColor=Color.RED)</span><br><span class="line">    <span class="keyword">private</span> String appleColor;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAppleColor</span><span class="params">(String appleColor)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.appleColor = appleColor;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getAppleColor</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> appleColor;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAppleName</span><span class="params">(String appleName)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.appleName = appleName;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getAppleName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> appleName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">displayName</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"水果的名字是：苹果"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="u6CE8_u89E3_u5143_u7D20_u7684_u9ED8_u8BA4_u503C"><a href="#u6CE8_u89E3_u5143_u7D20_u7684_u9ED8_u8BA4_u503C" class="headerlink" title="注解元素的默认值"></a>注解元素的默认值</h3><p>注解元素必须有确定的值，要么在定义注解的默认值中指定，要么在使用注解时指定，<strong>非基本类型的注解元素的值不可为null</strong>。因此, 使用空字符串或0作为默认值是一种常用的做法。这个约束使得处理器很难表现一个元素的存在或缺失的状态，因为每个注解的声明中，所有元素都存在，并且都具有相应的值，为了绕开这个约束，我们只能定义一些特殊的值，例如空字符串或者负数，一次表示某个元素不存在，在定义注解时，这已经成为一个习惯用法。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> annotation;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Documented;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.ElementType;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Retention;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.RetentionPolicy;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Target;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * 水果供应者注解</span><br><span class="line"> * <span class="doctag">@author</span> FirenzesEagle</span><br><span class="line"> *</span><br><span class="line"> */</span></span><br><span class="line"><span class="annotation">@Target</span>(ElementType.FIELD)</span><br><span class="line"><span class="annotation">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="annotation">@Documented</span></span><br><span class="line"><span class="keyword">public</span> <span class="annotation">@interface</span> FruitProvider &#123;</span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * 供应商编号</span><br><span class="line">     * <span class="doctag">@return</span></span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">id</span><span class="params">()</span> <span class="keyword">default</span> -1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * 供应商名称</span><br><span class="line">     * <span class="doctag">@return</span></span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">name</span><span class="params">()</span> <span class="keyword">default</span> ""</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * 供应商地址</span><br><span class="line">     * <span class="doctag">@return</span></span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">address</span><span class="params">()</span> <span class="keyword">default</span> ""</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>定义了注解，并在需要的时候给相关类，类属性加上注解信息，如果没有相应的注解信息处理流程，注解可以说是没有实用价值。如何让注解真真的发挥作用，主要就在于注解处理方法。</p>
+<h2 id="u6CE8_u89E3_u5904_u7406_u5668"><a href="#u6CE8_u89E3_u5904_u7406_u5668" class="headerlink" title="注解处理器"></a>注解处理器</h2><p>如果没有用来读取注解的方法和工作，那么注解也就不会比注释更有用处了。使用注解的过程中，很重要的一部分就是创建于使用注解处理器。Java SE5扩展了反射机制的API，以帮助程序员快速的构造自定义注解处理器。</p>
+<h3 id="u6CE8_u89E3_u5904_u7406_u5668_u7C7B_u5E93_28java-lang-reflect-AnnotatedElement_29"><a href="#u6CE8_u89E3_u5904_u7406_u5668_u7C7B_u5E93_28java-lang-reflect-AnnotatedElement_29" class="headerlink" title="注解处理器类库(java.lang.reflect.AnnotatedElement)"></a>注解处理器类库(java.lang.reflect.AnnotatedElement)</h3><p>Java使用Annotation接口来代表程序元素前面的注解，该接口是所有Annotation类型的父接口。除此之外，Java在java.lang.reflect包下新增了AnnotatedElement接口，该接口代表程序中可以接受注解的程序元素，该接口主要有如下几个实现类：</p>
+<blockquote>
+<ul>
+<li>Class：类定义</li>
+<li>Constructor：构造器定义</li>
+<li>Field：累的成员变量定义</li>
+<li>Method：类的方法定义</li>
+<li>Package：类的包定义</li>
+</ul>
+</blockquote>
+<p><code>java.lang.reflect</code>包下主要包含一些实现反射功能的工具类，实际上，<code>java.lang.reflect</code> 包所有提供的反射API扩充了读取运行时Annotation信息的能力。当一个Annotation类型被定义为运行时的Annotation后，该注解才能是运行时可见，当class文件被装载时被保存在class文件中的Annotation才会被虚拟机读取。</p>
+<p>AnnotatedElement接口是所有程序元素（Class、Method和Constructor）的父接口，所以程序通过反射获取了某个类的AnnotatedElement对象之后，程序就可以调用该对象的如下四个个方法来访问Annotation信息：</p>
+<blockquote>
+<ol>
+<li><t extends="" annotation=""> T getAnnotation(Class<t> annotationClass): 返回改程序元素上存在的、指定类型的注解，如果该类型注解不存在，则返回null。</t></t></li>
+<li>Annotation[] getAnnotations():返回该程序元素上存在的所有注解。</li>
+<li>boolean is AnnotationPresent(Class&lt;?extends Annotation&gt; annotationClass):判断该程序元素上是否包含指定类型的注解，存在则返回true，否则返回false.</li>
+<li>Annotation[] getDeclaredAnnotations()：返回直接存在于此元素上的所有注释。与此接口中的其他方法不同，该方法将忽略继承的注释。（如果没有注释直接存在于此元素上，则返回长度为零的一个数组。）该方法的调用者可以随意修改返回的数组；这不会对其他调用者返回的数组产生任何影响。</li>
+</ol>
+</blockquote>
+<p>一个简单的注解处理器：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/***********注解声明***************/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * 水果名称注解</span><br><span class="line"> * <span class="doctag">@author</span> FirenzesEagle</span><br><span class="line"> *</span><br><span class="line"> */</span></span><br><span class="line"><span class="annotation">@Target</span>(ElementType.FIELD)</span><br><span class="line"><span class="annotation">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="annotation">@Documented</span></span><br><span class="line"><span class="keyword">public</span> <span class="annotation">@interface</span> FruitName &#123;</span><br><span class="line">    <span class="function">String <span class="title">value</span><span class="params">()</span> <span class="keyword">default</span> ""</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * 水果颜色注解</span><br><span class="line"> * <span class="doctag">@author</span> FirenzesEagle</span><br><span class="line"> *</span><br><span class="line"> */</span></span><br><span class="line"><span class="annotation">@Target</span>(ElementType.FIELD)</span><br><span class="line"><span class="annotation">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="annotation">@Documented</span></span><br><span class="line"><span class="keyword">public</span> <span class="annotation">@interface</span> FruitColor &#123;</span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * 颜色枚举</span><br><span class="line">     * <span class="doctag">@author</span> FirenzesEagle</span><br><span class="line">     *</span><br><span class="line">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">enum</span> Color&#123;BULE,RED,GREEN&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * 颜色属性</span><br><span class="line">     * <span class="doctag">@return</span></span><br><span class="line">     */</span></span><br><span class="line">    <span class="function">Color <span class="title">fruitColor</span><span class="params">()</span> <span class="keyword">default</span> Color.GREEN</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * 水果供应者注解</span><br><span class="line"> * <span class="doctag">@author</span> FirenzesEagle</span><br><span class="line"> *</span><br><span class="line"> */</span></span><br><span class="line"><span class="annotation">@Target</span>(ElementType.FIELD)</span><br><span class="line"><span class="annotation">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="annotation">@Documented</span></span><br><span class="line"><span class="keyword">public</span> <span class="annotation">@interface</span> FruitProvider &#123;</span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * 供应商编号</span><br><span class="line">     * <span class="doctag">@return</span></span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">id</span><span class="params">()</span> <span class="keyword">default</span> -1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * 供应商名称</span><br><span class="line">     * <span class="doctag">@return</span></span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">name</span><span class="params">()</span> <span class="keyword">default</span> ""</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * 供应商地址</span><br><span class="line">     * <span class="doctag">@return</span></span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">address</span><span class="params">()</span> <span class="keyword">default</span> ""</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/***********注解使用***************/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Apple</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@FruitName</span>(<span class="string">"Apple"</span>)</span><br><span class="line">    <span class="keyword">private</span> String appleName;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@FruitColor</span>(fruitColor=Color.RED)</span><br><span class="line">    <span class="keyword">private</span> String appleColor;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@FruitProvider</span>(id=<span class="number">1</span>,name=<span class="string">"陕西红富士集团"</span>,address=<span class="string">"陕西省西安市延安路89号红富士大厦"</span>)</span><br><span class="line">    <span class="keyword">private</span> String appleProvider;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAppleColor</span><span class="params">(String appleColor)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.appleColor = appleColor;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getAppleColor</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> appleColor;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAppleName</span><span class="params">(String appleName)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.appleName = appleName;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getAppleName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> appleName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAppleProvider</span><span class="params">(String appleProvider)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.appleProvider = appleProvider;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getAppleProvider</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> appleProvider;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">displayName</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"水果的名字是：苹果"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/***********注解处理器***************/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FruitInfoUtil</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">getFruitInfo</span><span class="params">(Class&lt;?&gt; clazz)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        String strFruitName=<span class="string">" 水果名称："</span>;</span><br><span class="line">        String strFruitColor=<span class="string">" 水果颜色："</span>;</span><br><span class="line">        String strFruitProvicer=<span class="string">"供应商信息："</span>;</span><br><span class="line"></span><br><span class="line">        Field[] fields = clazz.getDeclaredFields();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(Field field :fields)&#123;</span><br><span class="line">            <span class="keyword">if</span>(field.isAnnotationPresent(FruitName.class))&#123;</span><br><span class="line">                FruitName fruitName = (FruitName) field.getAnnotation(FruitName.class);</span><br><span class="line">                strFruitName=strFruitName+fruitName.value();</span><br><span class="line">                System.out.println(strFruitName);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(field.isAnnotationPresent(FruitColor.class))&#123;</span><br><span class="line">                FruitColor fruitColor= (FruitColor) field.getAnnotation(FruitColor.class);</span><br><span class="line">                strFruitColor=strFruitColor+fruitColor.fruitColor().toString();</span><br><span class="line">                System.out.println(strFruitColor);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(field.isAnnotationPresent(FruitProvider.class))&#123;</span><br><span class="line">                FruitProvider fruitProvider= (FruitProvider) field.getAnnotation(FruitProvider.class);</span><br><span class="line">                strFruitProvicer=<span class="string">" 供应商编号："</span>+fruitProvider.id()+<span class="string">" 供应商名称："</span>+fruitProvider.name()+<span class="string">" 供应商地址："</span>+fruitProvider.address();</span><br><span class="line">                System.out.println(strFruitProvicer);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/***********输出结果***************/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FruitRun</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * <span class="doctag">@param</span> args</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        FruitInfoUtil.getFruitInfo(Apple.class);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">====================================</span><br><span class="line"> 水果名称：Apple</span><br><span class="line"> 水果颜色：RED</span><br><span class="line"> 供应商编号：<span class="number">1</span> 供应商名称：陕西红富士集团 供应商地址：陕西省西安市延安路<span class="number">89</span>号红富士大厦</span><br></pre></td></tr></table></figure></p>
+<h2 id="Java_u6CE8_u89E3_u7684_u57FA_u7840_u77E5_u8BC6_u70B9_u601D_u7EF4_u5BFC_u56FE"><a href="#Java_u6CE8_u89E3_u7684_u57FA_u7840_u77E5_u8BC6_u70B9_u601D_u7EF4_u5BFC_u56FE" class="headerlink" title="Java注解的基础知识点思维导图"></a>Java注解的基础知识点思维导图</h2><p><img src="http://7xowla.com1.z0.glb.clouddn.com/Annotation.jpg" alt="Annotation"></p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Annotation/" rel="tag">#Annotation</a>
+          
+            <a href="/tags/Java/" rel="tag">#Java</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/12/17/java-reflect/" rel="next" title="Java总结篇：反射">
+                <i class="fa fa-chevron-left"></i> Java总结篇：反射
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+        </div>
+
+        
+
+
+        
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2015/12/21/java-annotation/"
+           data-title="Java总结篇：注解" data-url="http://firenzeseagle.github.io/2015/12/21/java-annotation/">
+      </div>
+    
+  </div>
+
+
+      </div>
+
+      
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="http://7xowla.com1.z0.glb.clouddn.com/11.jpg" alt="FirenzesEagle" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">FirenzesEagle</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">Nothing is true Everything is permitted</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">0</span>
+              <span class="site-state-item-name">分类</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/FirenzesEagle/" target="_blank">
+                  
+                    <i class="fa fa-github"></i> GitHub
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/2096592892" target="_blank">
+                  
+                    <i class="fa fa-weibo"></i> Weibo
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#u57FA_u672C_u6982_u5FF5"><span class="nav-number">1.</span> <span class="nav-text">基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#u4EC0_u4E48_u662F_u6CE8_u89E3_uFF08Annotation_uFF09"><span class="nav-number">1.1.</span> <span class="nav-text">什么是注解（Annotation）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u4EC0_u4E48_u662Fmetadata_uFF08_u5143_u6570_u636E_uFF09_uFF1A"><span class="nav-number">1.2.</span> <span class="nav-text">什么是metadata（元数据）：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Annotation_u548CAnnotation_u7C7B_u578B"><span class="nav-number">1.3.</span> <span class="nav-text">Annotation和Annotation类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u6CE8_u89E3_u7684_u5206_u7C7B"><span class="nav-number">1.4.</span> <span class="nav-text">注解的分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u7CFB_u7EDF_u5185_u7F6E_u6807_u51C6_u6CE8_u89E3"><span class="nav-number">1.5.</span> <span class="nav-text">系统内置标准注解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#@Override__u9650_u5B9A_u91CD_u5199_u7236_u7C7B_u65B9_u6CD5"><span class="nav-number">1.5.1.</span> <span class="nav-text">@Override 限定重写父类方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#@Deprecated__u6807_u8BB0_u5DF2_u8FC7_u65F6"><span class="nav-number">1.5.2.</span> <span class="nav-text">@Deprecated 标记已过时</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#@SuppressWarnnings__u6291_u5236_u7F16_u8BD1_u5668_u8B66_u544A"><span class="nav-number">1.5.3.</span> <span class="nav-text">@SuppressWarnnings 抑制编译器警告</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u81EA_u5B9A_u4E49_u6CE8_u89E3"><span class="nav-number">2.</span> <span class="nav-text">自定义注解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#u5143_u6CE8_u89E3"><span class="nav-number">2.1.</span> <span class="nav-text">元注解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#@Target"><span class="nav-number">2.1.1.</span> <span class="nav-text">@Target</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#@Retention"><span class="nav-number">2.1.2.</span> <span class="nav-text">@Retention</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#@Documented"><span class="nav-number">2.1.3.</span> <span class="nav-text">@Documented</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#@Inherited"><span class="nav-number">2.1.4.</span> <span class="nav-text">@Inherited</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u81EA_u5B9A_u4E49_u6CE8_u89E3-1"><span class="nav-number">2.2.</span> <span class="nav-text">自定义注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u6CE8_u89E3_u5143_u7D20_u7684_u9ED8_u8BA4_u503C"><span class="nav-number">2.3.</span> <span class="nav-text">注解元素的默认值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u6CE8_u89E3_u5904_u7406_u5668"><span class="nav-number">3.</span> <span class="nav-text">注解处理器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#u6CE8_u89E3_u5904_u7406_u5668_u7C7B_u5E93_28java-lang-reflect-AnnotatedElement_29"><span class="nav-number">3.1.</span> <span class="nav-text">注解处理器类库(java.lang.reflect.AnnotatedElement)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java_u6CE8_u89E3_u7684_u57FA_u7840_u77E5_u8BC6_u70B9_u601D_u7EF4_u5BFC_u56FE"><span class="nav-number">4.</span> <span class="nav-text">Java注解的基础知识点思维导图</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+      
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2015</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">FirenzesEagle</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+    
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"firenzeseagle"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+    
+     
+
+
+    
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+<script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+<script type="text/javascript" src="/js/motion.js?v=0.4.5.2" id="motion.global"></script>
+
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    motionMiddleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  <script type="text/javascript" src="/js/bootstrap.js"></script>
+
+  
+  
+
+  
+  
+
+</body>
+</html>
