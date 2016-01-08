@@ -51,22 +51,16 @@
 
 
 
-<meta name="description" content="Ubuntu的默认源是位于欧洲的官方更新服务器（国内较慢，但无同步延迟问题)，现在很多高校都开通了IPv6，而且对IPv6的免流量费，正好Ubuntu有很多镜像站支持IPv6，因此我们可以手动设置Ubuntu的源来达到免流量更新的目的，速度也更快。
-首先备份源列表：1sudo cp /etc/apt/sources.list /etc/apt/sources.list_backup
-接下来进行如下">
+<meta name="description" content="Ubuntu的默认源是位于欧洲的官方更新服务器（国内较慢，但无同步延迟问题)，现在很多高校都开通了IPv6，而且对IPv6的免流量费，正好Ubuntu有很多镜像站支持IPv6，因此我们可以手动设置Ubuntu的源来达到免流量更新的目的，速度也更快。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="校园网下使用IPv6源 免流量更新">
 <meta property="og:url" content="http://firenzeseagle.github.io/2016/01/08/linux-IPv6/index.html">
 <meta property="og:site_name" content="FirenzesEagle's Blog">
-<meta property="og:description" content="Ubuntu的默认源是位于欧洲的官方更新服务器（国内较慢，但无同步延迟问题)，现在很多高校都开通了IPv6，而且对IPv6的免流量费，正好Ubuntu有很多镜像站支持IPv6，因此我们可以手动设置Ubuntu的源来达到免流量更新的目的，速度也更快。
-首先备份源列表：1sudo cp /etc/apt/sources.list /etc/apt/sources.list_backup
-接下来进行如下">
-<meta property="og:updated_time" content="2016-01-08T05:48:59.092Z">
+<meta property="og:description" content="Ubuntu的默认源是位于欧洲的官方更新服务器（国内较慢，但无同步延迟问题)，现在很多高校都开通了IPv6，而且对IPv6的免流量费，正好Ubuntu有很多镜像站支持IPv6，因此我们可以手动设置Ubuntu的源来达到免流量更新的目的，速度也更快。">
+<meta property="og:updated_time" content="2016-01-08T05:50:16.636Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="校园网下使用IPv6源 免流量更新">
-<meta name="twitter:description" content="Ubuntu的默认源是位于欧洲的官方更新服务器（国内较慢，但无同步延迟问题)，现在很多高校都开通了IPv6，而且对IPv6的免流量费，正好Ubuntu有很多镜像站支持IPv6，因此我们可以手动设置Ubuntu的源来达到免流量更新的目的，速度也更快。
-首先备份源列表：1sudo cp /etc/apt/sources.list /etc/apt/sources.list_backup
-接下来进行如下">
+<meta name="twitter:description" content="Ubuntu的默认源是位于欧洲的官方更新服务器（国内较慢，但无同步延迟问题)，现在很多高校都开通了IPv6，而且对IPv6的免流量费，正好Ubuntu有很多镜像站支持IPv6，因此我们可以手动设置Ubuntu的源来达到免流量更新的目的，速度也更快。">
 
 
 
@@ -280,6 +274,7 @@
 
       
         <span itemprop="articleBody"><p>Ubuntu的默认源是位于欧洲的官方更新服务器（国内较慢，但无同步延迟问题)，现在很多高校都开通了IPv6，而且对IPv6的免流量费，正好Ubuntu有很多镜像站支持IPv6，因此我们可以手动设置Ubuntu的源来达到免流量更新的目的，速度也更快。</p>
+<a id="more"></a>
 <p>首先备份源列表：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo cp /etc/apt/sources.list /etc/apt/sources.list_backup</span><br></pre></td></tr></table></figure></p>
 <p>接下来进行如下操作：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo gedit /etc/apt/sources.list         //打开软件源列表，将下面源复制进去，放在文件开头，保存退出</span><br><span class="line">sudo apt-get update                        //更新源列表</span><br><span class="line">sudo apt-get upgrade                     //这一步是更新软件</span><br></pre></td></tr></table></figure></p>
 <p>各大教育网源：</p>
