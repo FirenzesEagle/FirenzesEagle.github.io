@@ -35,7 +35,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo," />
+  <meta name="keywords" content="Linux," />
 
 
 
@@ -51,54 +51,19 @@
 
 
 
-<meta name="description" content="上一节对Hexo进行了简单介绍，本节来讲讲怎么搭建Hexo博客。
-
-注意：本节教程只针对Windows用户适用于如下环境及软件版本
-
-hexo: 3.1.1
-os: Windows_NT 10.0.10586 win32 x64
-http_parser: 2.6.0
-node: 5.1.0
-v8: 4.6.85.31
-uv: 1.7.5
-zlib: 1.2.8
-ares: 1.10.1-DEV
-i">
+<meta name="description" content="安装windows7+elementary os双系统的时候，选择的elementary os自动安装，结果安装程序给主分区/分了8G的硬盘空间，给/swap分区分了4个G的分区，导致后来安装上各种软件后，Linux主分区提示硬盘空间不足。开始想着重装系统好了，但是毕竟再重新装一堆软件并进行各种配置实在是一件十分费神的事情，所以在这里介绍下如何对Linux分区进行无损的扩展。
+涉及到的硬件与软件">
 <meta property="og:type" content="article">
-<meta property="og:title" content="从零开始搭建hexo博客">
-<meta property="og:url" content="http://firenzeseagle.github.io/2015/12/08/hexo-01/index.html">
+<meta property="og:title" content="无损调整Windows与Linux分区">
+<meta property="og:url" content="http://firenzeseagle.github.io/2016/01/26/linux-disk-manage/index.html">
 <meta property="og:site_name" content="FirenzesEagle's Blog">
-<meta property="og:description" content="上一节对Hexo进行了简单介绍，本节来讲讲怎么搭建Hexo博客。
-
-注意：本节教程只针对Windows用户适用于如下环境及软件版本
-
-hexo: 3.1.1
-os: Windows_NT 10.0.10586 win32 x64
-http_parser: 2.6.0
-node: 5.1.0
-v8: 4.6.85.31
-uv: 1.7.5
-zlib: 1.2.8
-ares: 1.10.1-DEV
-i">
-<meta property="og:image" content="http://7xowla.com1.z0.glb.clouddn.com/hexo_00.png">
-<meta property="og:image" content="http://7xowla.com1.z0.glb.clouddn.com/hexo_01.png">
-<meta property="og:updated_time" content="2015-12-08T14:27:16.951Z">
+<meta property="og:description" content="安装windows7+elementary os双系统的时候，选择的elementary os自动安装，结果安装程序给主分区/分了8G的硬盘空间，给/swap分区分了4个G的分区，导致后来安装上各种软件后，Linux主分区提示硬盘空间不足。开始想着重装系统好了，但是毕竟再重新装一堆软件并进行各种配置实在是一件十分费神的事情，所以在这里介绍下如何对Linux分区进行无损的扩展。
+涉及到的硬件与软件">
+<meta property="og:updated_time" content="2016-01-26T12:50:07.002Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="从零开始搭建hexo博客">
-<meta name="twitter:description" content="上一节对Hexo进行了简单介绍，本节来讲讲怎么搭建Hexo博客。
-
-注意：本节教程只针对Windows用户适用于如下环境及软件版本
-
-hexo: 3.1.1
-os: Windows_NT 10.0.10586 win32 x64
-http_parser: 2.6.0
-node: 5.1.0
-v8: 4.6.85.31
-uv: 1.7.5
-zlib: 1.2.8
-ares: 1.10.1-DEV
-i">
+<meta name="twitter:title" content="无损调整Windows与Linux分区">
+<meta name="twitter:description" content="安装windows7+elementary os双系统的时候，选择的elementary os自动安装，结果安装程序给主分区/分了8G的硬盘空间，给/swap分区分了4个G的分区，导致后来安装上各种软件后，Linux主分区提示硬盘空间不足。开始想着重装系统好了，但是毕竟再重新装一堆软件并进行各种配置实在是一件十分费神的事情，所以在这里介绍下如何对Linux分区进行无损的扩展。
+涉及到的硬件与软件">
 
 
 
@@ -110,7 +75,7 @@ i">
   };
 </script>
 
-  <title> 从零开始搭建hexo博客 | FirenzesEagle's Blog </title>
+  <title> 无损调整Windows与Linux分区 | FirenzesEagle's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -271,7 +236,7 @@ i">
             
             
               
-                从零开始搭建hexo博客
+                无损调整Windows与Linux分区
               
             
           </h1>
@@ -280,8 +245,8 @@ i">
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2015-12-08T22:27:16+08:00" content="2015-12-08">
-              2015-12-08
+            <time itemprop="dateCreated" datetime="2016-01-26T20:46:17+08:00" content="2016-01-26">
+              2016-01-26
             </time>
           </span>
 
@@ -291,8 +256,8 @@ i">
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/12/08/hexo-01/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/08/hexo-01/" itemprop="commentsCount"></span>
+                <a href="/2016/01/26/linux-disk-manage/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/26/linux-disk-manage/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -311,50 +276,60 @@ i">
       
 
       
-        <span itemprop="articleBody"><p><a href="http://firenzeseagle.github.io/2015/12/08/hexo-00/">上一节</a>对Hexo进行了简单介绍，本节来讲讲怎么搭建Hexo博客。</p>
-<blockquote>
-<p><strong>注意</strong>：本节教程只针对<code>Windows</code>用户<br>适用于如下环境及软件版本</p>
+        <span itemprop="articleBody"><p>安装<code>windows7</code>+<code>elementary os</code>双系统的时候，选择的<code>elementary os</code>自动安装，结果安装程序给主分区<code>/</code>分了8G的硬盘空间，给<code>/swap</code>分区分了4个G的分区，导致后来安装上各种软件后，Linux主分区提示硬盘空间不足。开始想着重装系统好了，但是毕竟再重新装一堆软件并进行各种配置实在是一件十分费神的事情，所以在这里介绍下如何对Linux分区进行无损的扩展。</p>
+<h2 id="u6D89_u53CA_u5230_u7684_u786C_u4EF6_u4E0E_u8F6F_u4EF6"><a href="#u6D89_u53CA_u5230_u7684_u786C_u4EF6_u4E0E_u8F6F_u4EF6" class="headerlink" title="涉及到的硬件与软件"></a>涉及到的硬件与软件</h2><blockquote>
 <ul>
-<li>hexo: 3.1.1</li>
-<li>os: Windows_NT 10.0.10586 win32 x64</li>
-<li>http_parser: 2.6.0</li>
-<li>node: 5.1.0</li>
-<li>v8: 4.6.85.31</li>
-<li>uv: 1.7.5</li>
-<li>zlib: 1.2.8</li>
-<li>ares: 1.10.1-DEV</li>
-<li>icu: 56.1</li>
-<li>modules: 47</li>
-<li>openssl: 1.0.2d</li>
+<li>三星 820 128G SSD</li>
+<li>Sandisk Extreme CZ80 32G U盘</li>
+<li>DiskGenius Windows平台无损硬盘分区工具</li>
+<li>UltraISO 软碟通 制作镜像U盘工具</li>
+<li>Gparted-live-0.25.0-1-amd64.iso 针对Linux分区格式的无损硬盘分区工具</li>
 </ul>
 </blockquote>
-<a id="more"></a>
-<h2 id="u5B89_u88C5Git"><a href="#u5B89_u88C5Git" class="headerlink" title="安装Git"></a>安装Git</h2><p>下载 <a href="http://git-scm.com/download/" target="_blank" rel="external">Git</a> 并执行即可完成安装。由于Git的官网下载在墙内实在是太慢，如果没有下载速度的话，建议尝试在<a href="http://rj.baidu.com/soft/detail/30195.html?ald" target="_blank" rel="external">百度软件中心</a>下载安装，注意下载的时候点<code>普通下载</code>，不然你会获赠百度全家桶一份！</p>
-<h2 id="u5B89_u88C5Node-js"><a href="#u5B89_u88C5Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h2><p>利用 <code>npm</code> 命令即可安装。（在任意位置点击鼠标右键，选择<code>Git Bash Here</code>）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo</span><br></pre></td></tr></table></figure></p>
-<h2 id="u521B_u5EFAHexo_u6587_u4EF6_u5939"><a href="#u521B_u5EFAHexo_u6587_u4EF6_u5939" class="headerlink" title="创建Hexo文件夹"></a>创建Hexo文件夹</h2><p>安装完成后，在你需要简历博客的文件夹下（如<code>F:\Hexo</code>），执行以下指令(在<code>F:\Hexo</code>内点击鼠标右键，选择<code>Git Bash Here</code>)，Hexo 即会自动在目标文件夹建立网站所需要的所有文件。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></table></figure></p>
-<h2 id="u5B89_u88C5_u4F9D_u8D56_u5305"><a href="#u5B89_u88C5_u4F9D_u8D56_u5305" class="headerlink" title="安装依赖包"></a>安装依赖包</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
-<p>命令执行完成后，文件夹下是这样的：</p>
-<p><img src="http://7xowla.com1.z0.glb.clouddn.com/hexo_00.png" alt="hexo_00"></p>
-<h2 id="u672C_u5730_u67E5_u770B"><a href="#u672C_u5730_u67E5_u770B" class="headerlink" title="本地查看"></a>本地查看</h2><p>现在我们已经搭建起本地的Hexo博客了，执行以下命令(在<code>F:\Hexo</code>)，然后到浏览器输入<code>localhost:4000</code>看看。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo generate</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
-<p>好了，至此，本地博客已经搭建起来了，不过这只是本地查看，别人看不到的。下面，我们要将其部署到Github。</p>
-<h2 id="u6CE8_u518CGithub_u8D26_u53F7"><a href="#u6CE8_u518CGithub_u8D26_u53F7" class="headerlink" title="注册Github账号"></a>注册Github账号</h2><p>已有账号可以跳过，没有的，请<a href="https://github.com/signup/free" target="_blank" rel="external">在此</a>进行注册，很简单，这里就不介绍了。<br><img src="http://7xowla.com1.z0.glb.clouddn.com/hexo_01.png" alt="hexo_01"></p>
-<h2 id="u521B_u5EFArepository"><a href="#u521B_u5EFArepository" class="headerlink" title="创建repository"></a>创建repository</h2><p>在自己<a href="https://github.com/" target="_blank" rel="external">Github</a>主页右下角，创建一个新的repository。比如我的Github账号是<a href="https://github.com/FirenzesEagle/" target="_blank" rel="external">FirenzesEagle</a>，那么我应该创建的repository名字应该是<code>FirenzesEagle.github.io</code>。</p>
-<h2 id="u90E8_u7F72"><a href="#u90E8_u7F72" class="headerlink" title="部署"></a>部署</h2><p>编辑_config.yml(在F:\Hexo下)。你在部署时，要把下面的<code>FirenzesEagle</code>都换成你的账号名。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  <span class="built_in">type</span>: git</span><br><span class="line">  repository: git@github.com:FirenzesEagle/FirenzesEagle.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure></p>
-<p><strong>Tips</strong>：</p>
+<h2 id="u8C03_u6574Windows_u4E0B_u5206_u533A_u5927_u5C0F"><a href="#u8C03_u6574Windows_u4E0B_u5206_u533A_u5927_u5C0F" class="headerlink" title="调整Windows下分区大小"></a>调整Windows下分区大小</h2><p>调整之前，SSD的分区如下：</p>
+<blockquote>
 <ol>
-<li><code>Hexo 3.0</code>版本之前，<code>type</code>为<code>github</code></li>
-<li>此处<code>repository</code>使用的是SSH的方式来链接Github仓库，之前照着网上的教程用<code>http</code>方式都部署不成功</li>
+<li>100G Windows系统分区 主分区 NTFS格式</li>
+<li>8G Linux<code>/</code>分区 拓展分区1 EXT3格式</li>
+<li>4G Linux<code>/swap</code>交换分区 拓展分区2 EXT3格式</li>
 </ol>
-<p>执行下列指令即可完成部署。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo generate</span><br><span class="line">npm install hexo-deployer-git --save</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure></p>
-<p><strong>Tips：</strong></p>
+</blockquote>
+<p>使用DiskGenius将100G的Windows分区无损划分出40G的大小变为空闲分区，期间系统会重启自动进入DOS下的DiskGenius软件，等待调整分区工作完成后自动重启，这时候就可以得到一个40G的未被格式化的空闲分区。</p>
+<p>这时候我的<code>/</code>分区和<code>/swap</code>交换分区还都是逻辑分区，可以用DiskGenius软件转换为主分区，对数据没有任何影响。</p>
+<p>调整之后，SSD的分区如下：</p>
+<blockquote>
 <ol>
-<li>有些Github新用户需要设置 SSH，否则上述命令会失败。SSH 的介绍和设置方法请看<a href="https://help.github.com/articles/generating-ssh-keys/" target="_blank" rel="external">官方教程</a>，不用担心，很简单。如果英文教程看起来有些吃力的话，可以看<a href="https://www.webmaster.me/uncategorized/add-multiple-ssh-keys-on-github.html" target="_blank" rel="external">这篇博客</a>。</li>
-<li>每次修改本地文件后，需要<code>hexo generate</code>才能保存。每次使用命令时，都要在<code>F:\Hexo</code>目录下。</li>
+<li>60G Windows系统分区 主分区 NTFS格式</li>
+<li>40G 空闲分区 未格式化</li>
+<li>8G Linux<code>/</code>分区 主分区 EXT3格式</li>
+<li>4G Linux<code>/swap</code>交换分区 主分区 EXT3格式</li>
 </ol>
-<p>这时候，我们的博客已经完全搭建起来了，在浏览器访问<code>FirenzesEagle.github.io</code>就能看到你的成就了！</p>
-<h2 id="u590D_u5408_u547D_u4EE4"><a href="#u590D_u5408_u547D_u4EE4" class="headerlink" title="复合命令"></a>复合命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo deploy -g  <span class="comment">#生成加部署</span></span><br><span class="line">hexo server -g  <span class="comment">#生成加预览</span></span><br></pre></td></tr></table></figure>
-<p>命令的简写为：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hexo n == hexo new</span><br><span class="line">hexo g == hexo generate</span><br><span class="line">hexo s == hexo server</span><br><span class="line">hexo d == hexo deploy</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h2 id="u5408_u5E76_u7A7A_u95F2_u5206_u533A_u81F3/_u5206_u533A"><a href="#u5408_u5E76_u7A7A_u95F2_u5206_u533A_u81F3/_u5206_u533A" class="headerlink" title="合并空闲分区至<code>/</code>分区"></a>合并空闲分区至<code>/</code>分区</h2><p>使用软碟通（UltraISO）将下载好的Gparted镜像写入到U盘中，做成U盘启动盘，重启电脑，进入Gparted-live中，右键点击<code>/</code>分区，弹出右键菜单选择“更改大小/移动”，将8G的<code>/</code>分区增加至48G的大小，点击应用。提示可能会导致Grub引导丢失，点继续，大概一两分钟即可将空闲分区合并至<code>/</code>分区。合并完成后重启。</p>
+<h2 id="u4FEE_u590DGrub_u5F15_u5BFC"><a href="#u4FEE_u590DGrub_u5F15_u5BFC" class="headerlink" title="修复Grub引导"></a>修复Grub引导</h2><p>重启之后，会发现Grub引导丢失了，无法进入Grub选择启动的系统。可以通过以下步骤修复Grub引导。</p>
+<ol>
+<li><p>输入ls回车，查看显示的内容。如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(hd0) (hd0,msdos4) (hd0,msdos3) (hd0,msdos2)....</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>找出哪个盘安装了系统</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ls (hd0,msdos1)/boot/grub</span><br><span class="line">ls (hd0,msdos2)/boot/grub</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>尝试所有的，直到返回内容不再是<code>error: unknown filesystem.</code>为止</p>
+</li>
+<li><p>依次输入如下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> root=(hd0,msdos13)/boot/grub</span><br><span class="line"><span class="built_in">set</span> prefix=(hd0,msdos13)/boot/grub</span><br><span class="line">insmod normal</span><br><span class="line">normal</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>normal执行之后即进入选择启动项的界面，选择启动的系统进入</p>
+</li>
+<li><p>打开终端,输入如下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo fdisk <span class="operator">-l</span></span><br></pre></td></tr></table></figure>
+<p>找出自己系统分区所在硬盘，比如<code>/sda</code>，输入如下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo grub-install /dev/sdb</span><br><span class="line">sudo update-grub</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重启电脑：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo reboot</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
 </span>
       
     </div>
@@ -363,7 +338,7 @@ i">
       
         <div class="post-tags">
           
-            <a href="/tags/Hexo/" rel="tag">#Hexo</a>
+            <a href="/tags/Linux/" rel="tag">#Linux</a>
           
         </div>
       
@@ -372,17 +347,13 @@ i">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/12/08/hexo-00/" rel="next" title="Hexo 介绍">
-                <i class="fa fa-chevron-left"></i> Hexo 介绍
+              <a href="/2016/01/26/linux-jdk/" rel="next" title="Ubuntu14.04 安装配置jdk1.8">
+                <i class="fa fa-chevron-left"></i> Ubuntu14.04 安装配置jdk1.8
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2015/12/09/java-generic/" rel="prev" title="Java总结篇：泛型">
-                Java总结篇：泛型 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -409,8 +380,8 @@ i">
         
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2015/12/08/hexo-01/"
-           data-title="从零开始搭建hexo博客" data-url="http://firenzeseagle.github.io/2015/12/08/hexo-01/">
+      <div class="ds-thread" data-thread-key="2016/01/26/linux-disk-manage/"
+           data-title="无损调整Windows与Linux分区" data-url="http://firenzeseagle.github.io/2016/01/26/linux-disk-manage/">
       </div>
     
   </div>
@@ -524,7 +495,7 @@ i">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#u5B89_u88C5Git"><span class="nav-number">1.</span> <span class="nav-text">安装Git</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u5B89_u88C5Node-js"><span class="nav-number">2.</span> <span class="nav-text">安装Node.js</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u521B_u5EFAHexo_u6587_u4EF6_u5939"><span class="nav-number">3.</span> <span class="nav-text">创建Hexo文件夹</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u5B89_u88C5_u4F9D_u8D56_u5305"><span class="nav-number">4.</span> <span class="nav-text">安装依赖包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u672C_u5730_u67E5_u770B"><span class="nav-number">5.</span> <span class="nav-text">本地查看</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u6CE8_u518CGithub_u8D26_u53F7"><span class="nav-number">6.</span> <span class="nav-text">注册Github账号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u521B_u5EFArepository"><span class="nav-number">7.</span> <span class="nav-text">创建repository</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u90E8_u7F72"><span class="nav-number">8.</span> <span class="nav-text">部署</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u590D_u5408_u547D_u4EE4"><span class="nav-number">9.</span> <span class="nav-text">复合命令</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#u6D89_u53CA_u5230_u7684_u786C_u4EF6_u4E0E_u8F6F_u4EF6"><span class="nav-number">1.</span> <span class="nav-text">涉及到的硬件与软件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u8C03_u6574Windows_u4E0B_u5206_u533A_u5927_u5C0F"><span class="nav-number">2.</span> <span class="nav-text">调整Windows下分区大小</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u5408_u5E76_u7A7A_u95F2_u5206_u533A_u81F3/_u5206_u533A"><span class="nav-number">3.</span> <span class="nav-text">合并空闲分区至/分区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u4FEE_u590DGrub_u5F15_u5BFC"><span class="nav-number">4.</span> <span class="nav-text">修复Grub引导</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
