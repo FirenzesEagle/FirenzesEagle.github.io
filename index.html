@@ -284,65 +284,12 @@
 
       
         
-          <span itemprop="articleBody">
-            
-              <p>安装<code>windows7</code>+<code>elementary os</code>双系统的时候，选择的<code>elementary os</code>自动安装，结果安装程序给主分区<code>/</code>分了8G的硬盘空间，给<code>/swap</code>分区分了4个G的分区，导致后来安装上各种软件后，Linux主分区提示硬盘空间不足。开始想着重装系统好了，但是毕竟再重新装一堆软件并进行各种配置实在是一件十分费神的事情，所以在这里介绍下如何对Linux分区进行无损的扩展。</p>
-<h2 id="u6D89_u53CA_u5230_u7684_u786C_u4EF6_u4E0E_u8F6F_u4EF6"><a href="#u6D89_u53CA_u5230_u7684_u786C_u4EF6_u4E0E_u8F6F_u4EF6" class="headerlink" title="涉及到的硬件与软件"></a>涉及到的硬件与软件</h2><blockquote>
-<ul>
-<li>三星 820 128G SSD</li>
-<li>Sandisk Extreme CZ80 32G U盘</li>
-<li>DiskGenius Windows平台无损硬盘分区工具</li>
-<li>UltraISO 软碟通 制作镜像U盘工具</li>
-<li>Gparted-live-0.25.0-1-amd64.iso 针对Linux分区格式的无损硬盘分区工具</li>
-</ul>
-</blockquote>
-<h2 id="u8C03_u6574Windows_u4E0B_u5206_u533A_u5927_u5C0F"><a href="#u8C03_u6574Windows_u4E0B_u5206_u533A_u5927_u5C0F" class="headerlink" title="调整Windows下分区大小"></a>调整Windows下分区大小</h2><p>调整之前，SSD的分区如下：</p>
-<blockquote>
-<ol>
-<li>100G Windows系统分区 主分区 NTFS格式</li>
-<li>8G Linux<code>/</code>分区 拓展分区1 EXT3格式</li>
-<li>4G Linux<code>/swap</code>交换分区 拓展分区2 EXT3格式</li>
-</ol>
-</blockquote>
-<p>使用DiskGenius将100G的Windows分区无损划分出40G的大小变为空闲分区，期间系统会重启自动进入DOS下的DiskGenius软件，等待调整分区工作完成后自动重启，这时候就可以得到一个40G的未被格式化的空闲分区。</p>
-<p>这时候我的<code>/</code>分区和<code>/swap</code>交换分区还都是逻辑分区，可以用DiskGenius软件转换为主分区，对数据没有任何影响。</p>
-<p>调整之后，SSD的分区如下：</p>
-<blockquote>
-<ol>
-<li>60G Windows系统分区 主分区 NTFS格式</li>
-<li>40G 空闲分区 未格式化</li>
-<li>8G Linux<code>/</code>分区 主分区 EXT3格式</li>
-<li>4G Linux<code>/swap</code>交换分区 主分区 EXT3格式</li>
-</ol>
-</blockquote>
-<h2 id="u5408_u5E76_u7A7A_u95F2_u5206_u533A_u81F3/_u5206_u533A"><a href="#u5408_u5E76_u7A7A_u95F2_u5206_u533A_u81F3/_u5206_u533A" class="headerlink" title="合并空闲分区至<code>/</code>分区"></a>合并空闲分区至<code>/</code>分区</h2><p>使用软碟通（UltraISO）将下载好的Gparted镜像写入到U盘中，做成U盘启动盘，重启电脑，进入Gparted-live中，右键点击<code>/</code>分区，弹出右键菜单选择“更改大小/移动”，将8G的<code>/</code>分区增加至48G的大小，点击应用。提示可能会导致Grub引导丢失，点继续，大概一两分钟即可将空闲分区合并至<code>/</code>分区。合并完成后重启。</p>
-<h2 id="u4FEE_u590DGrub_u5F15_u5BFC"><a href="#u4FEE_u590DGrub_u5F15_u5BFC" class="headerlink" title="修复Grub引导"></a>修复Grub引导</h2><p>重启之后，会发现Grub引导丢失了，无法进入Grub选择启动的系统。可以通过以下步骤修复Grub引导。</p>
-<ol>
-<li><p>输入ls回车，查看显示的内容。如：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(hd0) (hd0,msdos4) (hd0,msdos3) (hd0,msdos2)....</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>找出哪个盘安装了系统</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ls (hd0,msdos1)/boot/grub</span><br><span class="line">ls (hd0,msdos2)/boot/grub</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>尝试所有的，直到返回内容不再是<code>error: unknown filesystem.</code>为止</p>
-</li>
-<li><p>依次输入如下命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> root=(hd0,msdos13)/boot/grub</span><br><span class="line"><span class="built_in">set</span> prefix=(hd0,msdos13)/boot/grub</span><br><span class="line">insmod normal</span><br><span class="line">normal</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>normal执行之后即进入选择启动项的界面，选择启动的系统进入</p>
-</li>
-<li><p>打开终端,输入如下命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo fdisk <span class="operator">-l</span></span><br></pre></td></tr></table></figure>
-<p>找出自己系统分区所在硬盘，比如<code>/sda</code>，输入如下命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo grub-install /dev/sdb</span><br><span class="line">sudo update-grub</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>重启电脑：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo reboot</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-
-            
-          </span>
+          <p>安装<code>windows7</code>+<code>elementary os</code>双系统的时候，选择的<code>elementary os</code>自动安装，结果安装程序给主分区<code>/</code>分了8G的硬盘空间，给<code>/swap</code>分区分了4个G的分区，导致后来安装上各种软件后，Linux主分区提示硬盘空间不足。开始想着重装系统好了，但是毕竟再重新装一堆软件并进行各种配置实在是一件十分费神的事情，所以在这里介绍下如何对Linux分区进行无损的扩展。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/01/26/linux-disk-manage/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
