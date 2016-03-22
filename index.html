@@ -293,38 +293,12 @@
 
       
         
-          <span itemprop="articleBody">
-            
-              <h2 id="u4E86_u89E3Web_u53CA_u7F51_u7EDC_u57FA_u7840"><a href="#u4E86_u89E3Web_u53CA_u7F51_u7EDC_u57FA_u7840" class="headerlink" title="了解Web及网络基础"></a>了解Web及网络基础</h2><p><img src="http://7xowla.com1.z0.glb.clouddn.com/1.6-1.jpg" alt="HTTP流程"></p>
-<blockquote>
-<ul>
-<li>URI：统一资源标识符   用字符串标识某一互联网资源</li>
-<li>URL：统一资源定位符    标识资源的地点    URL是URI的子集</li>
-</ul>
-</blockquote>
-<h2 id="u7B80_u5355_u7684HTTP_u534F_u8BAE"><a href="#u7B80_u5355_u7684HTTP_u534F_u8BAE" class="headerlink" title="简单的HTTP协议"></a>简单的HTTP协议</h2><p>HTTP协议规定，请求从客户端发出，最后服务器端响应该请求并返回。肯定是先从客户端开始建立通信的，服务器端在没有接收到请求之前不会发送响应。</p>
-<p><img src="http://7xowla.com1.z0.glb.clouddn.com/2.2-2.jpg" alt=""></p>
-<ul>
-<li>请求报文的构成</li>
-</ul>
-<p><img src="http://7xowla.com1.z0.glb.clouddn.com/2.2-3.jpg" alt=""></p>
-<ul>
-<li>响应报文的构成</li>
-</ul>
-<p><img src="http://7xowla.com1.z0.glb.clouddn.com/2.2-4.jpg" alt=""></p>
-<p>HTTP是不保存状态的协议，即无状态协议。为了实现期望的保持状态功能，引入了Cookie技术。</p>
-<p>GET：获取资源    GET方法用来请求访问已被URI识别的资源。<br>POST：传输实体主体<br>PUT：传输文件    不带验证机制<br>HEAD：获得报文首部    与GET方法一样，只是不返回报文主体部分，用于确认URI的有效性及资源更新的日期时间等。<br>DELETE：删除文件    不带验证机制<br>OPTIONS：询问支持的方法<br>TRACE：追踪路径    让Web服务器端将之前的请求通信环回给客户端的方法    容易引发XST（跨站追踪）攻击，通常不使用<br>CONNECT：要求用隧道协议连接代理    主要使用SSL（安全套接层）和TLS（传输层安全）协议把通信内容加密后经网络隧道传输</p>
-<p>在HTTP/1.1中，所有的连接默认都是持久连接，但在HTTP/1.0内并未标准化。虽然有一部分服务器通过非标准的手段实现了持久连接，但服务器端不一定能够支持持久连接。</p>
-<p>管线化技术出现后，不用等待响应亦可直接发送下一个请求。</p>
-<p>Cookie会根据从服务器端发送的响应报文内的一个叫做Set-Cookie的首部字段信息，通知客户端保存Cookie。当下次客户端再往该服务器发送请求时，客户端会自动在请求报文中加入Cookie值后发送出去。<br>发生Cookie交互的情景，HTTP请求报文和响应报文的内容如下：</p>
-<blockquote>
-<p>1.请求报文（没有Cookie信息的状态）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GET /reader/ HTTP/<span class="number">1.1</span></span><br><span class="line">Host: hackr.jp</span><br><span class="line">*首部字段内没有Cookie的相关信息</span><br></pre></td></tr></table></figure></p>
-<p>2.响应报文（服务器端生成Cookie信息）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">HTTP/<span class="number">1.1</span> <span class="number">200</span> OK</span><br><span class="line">Date: Thu, <span class="number">12</span> Jul <span class="number">2012</span> <span class="number">07</span>:<span class="number">12</span>:<span class="number">20</span> GMT</span><br><span class="line">Server:Apache</span><br><span class="line">&lt; Set-Cookie: sid=A8FmLwMtznTocnVv7; path=/; expires=Wed,=&gt;<span class="number">10</span>-Oct-<span class="number">12</span> <span class="number">07</span>:<span class="number">12</span>:<span class="number">20</span> GMT &gt;</span><br><span class="line">Content-Type: text/plain; charset=UTF-<span class="number">8</span></span><br></pre></td></tr></table></figure></p>
-<p>3.请求报文（自动发送保存着的Cookie信息）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GET /image/ HTTP/<span class="number">1.1</span></span><br><span class="line">Host:hackr.jp</span><br><span class="line">Cookie: sid=A8FmLwMtznTocnVv7</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-
-            
-          </span>
+          <p>最近阅读了【日】上野 宣所著的《图解HTTP》一书，对HTTP的原理做了更加深入的了解，以前做项目只是在一些流程中遇到过HTTP的一些实例，并没有深入的理解其中具体的细节，读完此书感慨颇深。作者以浅显易懂的语言并以丰富明了的插图向我们介绍了HTTP的原理，比起枯燥的《HTTP原理》等书，此书给人一种耳目一新的感觉，推荐大家读一下。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/03/22/HTTP/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>

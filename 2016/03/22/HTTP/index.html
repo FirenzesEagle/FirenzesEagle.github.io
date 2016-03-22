@@ -51,71 +51,20 @@
 
 
 
-<meta name="description" content="了解Web及网络基础
-
-
-URI：统一资源标识符   用字符串标识某一互联网资源
-URL：统一资源定位符    标识资源的地点    URL是URI的子集
-
-
-简单的HTTP协议HTTP协议规定，请求从客户端发出，最后服务器端响应该请求并返回。肯定是先从客户端开始建立通信的，服务器端在没有接收到请求之前不会发送响应。
-
-
-请求报文的构成
-
-
-
-响应报文的构成
-
-
-HTTP是不保存状态的协议，即无状">
+<meta name="description" content="最近阅读了【日】上野 宣所著的《图解HTTP》一书，对HTTP的原理做了更加深入的了解，以前做项目只是在一些流程中遇到过HTTP的一些实例，并没有深入的理解其中具体的细节，读完此书感慨颇深。作者以浅显易懂的语言并以丰富明了的插图向我们介绍了HTTP的原理，比起枯燥的《HTTP原理》等书，此书给人一种耳目一新的感觉，推荐大家读一下。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="图解HTTP">
 <meta property="og:url" content="http://firenzeseagle.github.io/2016/03/22/HTTP/index.html">
 <meta property="og:site_name" content="FirenzesEagle's Blog">
-<meta property="og:description" content="了解Web及网络基础
-
-
-URI：统一资源标识符   用字符串标识某一互联网资源
-URL：统一资源定位符    标识资源的地点    URL是URI的子集
-
-
-简单的HTTP协议HTTP协议规定，请求从客户端发出，最后服务器端响应该请求并返回。肯定是先从客户端开始建立通信的，服务器端在没有接收到请求之前不会发送响应。
-
-
-请求报文的构成
-
-
-
-响应报文的构成
-
-
-HTTP是不保存状态的协议，即无状">
+<meta property="og:description" content="最近阅读了【日】上野 宣所著的《图解HTTP》一书，对HTTP的原理做了更加深入的了解，以前做项目只是在一些流程中遇到过HTTP的一些实例，并没有深入的理解其中具体的细节，读完此书感慨颇深。作者以浅显易懂的语言并以丰富明了的插图向我们介绍了HTTP的原理，比起枯燥的《HTTP原理》等书，此书给人一种耳目一新的感觉，推荐大家读一下。">
 <meta property="og:image" content="http://7xowla.com1.z0.glb.clouddn.com/1.6-1.jpg">
 <meta property="og:image" content="http://7xowla.com1.z0.glb.clouddn.com/2.2-2.jpg">
 <meta property="og:image" content="http://7xowla.com1.z0.glb.clouddn.com/2.2-3.jpg">
 <meta property="og:image" content="http://7xowla.com1.z0.glb.clouddn.com/2.2-4.jpg">
-<meta property="og:updated_time" content="2016-03-22T03:18:23.095Z">
+<meta property="og:updated_time" content="2016-03-22T03:27:13.381Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="图解HTTP">
-<meta name="twitter:description" content="了解Web及网络基础
-
-
-URI：统一资源标识符   用字符串标识某一互联网资源
-URL：统一资源定位符    标识资源的地点    URL是URI的子集
-
-
-简单的HTTP协议HTTP协议规定，请求从客户端发出，最后服务器端响应该请求并返回。肯定是先从客户端开始建立通信的，服务器端在没有接收到请求之前不会发送响应。
-
-
-请求报文的构成
-
-
-
-响应报文的构成
-
-
-HTTP是不保存状态的协议，即无状">
+<meta name="twitter:description" content="最近阅读了【日】上野 宣所著的《图解HTTP》一书，对HTTP的原理做了更加深入的了解，以前做项目只是在一些流程中遇到过HTTP的一些实例，并没有深入的理解其中具体的细节，读完此书感慨颇深。作者以浅显易懂的语言并以丰富明了的插图向我们介绍了HTTP的原理，比起枯燥的《HTTP原理》等书，此书给人一种耳目一新的感觉，推荐大家读一下。">
 
 
 
@@ -328,7 +277,9 @@ HTTP是不保存状态的协议，即无状">
       
 
       
-        <span itemprop="articleBody"><h2 id="u4E86_u89E3Web_u53CA_u7F51_u7EDC_u57FA_u7840"><a href="#u4E86_u89E3Web_u53CA_u7F51_u7EDC_u57FA_u7840" class="headerlink" title="了解Web及网络基础"></a>了解Web及网络基础</h2><p><img src="http://7xowla.com1.z0.glb.clouddn.com/1.6-1.jpg" alt="HTTP流程"></p>
+        <span itemprop="articleBody"><p>最近阅读了【日】上野 宣所著的《图解HTTP》一书，对HTTP的原理做了更加深入的了解，以前做项目只是在一些流程中遇到过HTTP的一些实例，并没有深入的理解其中具体的细节，读完此书感慨颇深。作者以浅显易懂的语言并以丰富明了的插图向我们介绍了HTTP的原理，比起枯燥的《HTTP原理》等书，此书给人一种耳目一新的感觉，推荐大家读一下。</p>
+<a id="more"></a>
+<h2 id="u4E86_u89E3Web_u53CA_u7F51_u7EDC_u57FA_u7840"><a href="#u4E86_u89E3Web_u53CA_u7F51_u7EDC_u57FA_u7840" class="headerlink" title="了解Web及网络基础"></a>了解Web及网络基础</h2><p><img src="http://7xowla.com1.z0.glb.clouddn.com/1.6-1.jpg" alt="HTTP流程"></p>
 <blockquote>
 <ul>
 <li>URI：统一资源标识符   用字符串标识某一互联网资源</li>
@@ -353,7 +304,7 @@ HTTP是不保存状态的协议，即无状">
 <blockquote>
 <p>1.请求报文（没有Cookie信息的状态）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GET /reader/ HTTP/<span class="number">1.1</span></span><br><span class="line">Host: hackr.jp</span><br><span class="line">*首部字段内没有Cookie的相关信息</span><br></pre></td></tr></table></figure></p>
 <p>2.响应报文（服务器端生成Cookie信息）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">HTTP/<span class="number">1.1</span> <span class="number">200</span> OK</span><br><span class="line">Date: Thu, <span class="number">12</span> Jul <span class="number">2012</span> <span class="number">07</span>:<span class="number">12</span>:<span class="number">20</span> GMT</span><br><span class="line">Server:Apache</span><br><span class="line">&lt; Set-Cookie: sid=A8FmLwMtznTocnVv7; path=/; expires=Wed,=&gt;<span class="number">10</span>-Oct-<span class="number">12</span> <span class="number">07</span>:<span class="number">12</span>:<span class="number">20</span> GMT &gt;</span><br><span class="line">Content-Type: text/plain; charset=UTF-<span class="number">8</span></span><br></pre></td></tr></table></figure></p>
-<p>3.请求报文（自动发送保存着的Cookie信息）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GET /image/ HTTP/<span class="number">1.1</span></span><br><span class="line">Host:hackr.jp</span><br><span class="line">Cookie: sid=A8FmLwMtznTocnVv7</span><br></pre></td></tr></table></figure></p>
+<p>3.请求报文（自动发送保存着的Cookie信息）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GET /image/ HTTP/<span class="number">1.1</span></span><br><span class="line">Host:hackr.jp</span><br><span class="line">Cookie: sid=A8FmLwMtznTocn Vv7</span><br></pre></td></tr></table></figure></p>
 </blockquote>
 </span>
       
