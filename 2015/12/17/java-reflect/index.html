@@ -1,63 +1,11 @@
-<!doctype html>
-
-
-
-  
-
-
-<html class="theme-next pisces use-motion">
+<!DOCTYPE html>
+<html>
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
-
-
-
-
-  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-
-
-
-<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="Java,Reflect," />
-
-
-
-
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
-
-
-
-
-
-
-<meta name="description" content="开发的时候有时候会碰到这样的情况，我们在写程序的时候并不知道需要调用某个对象的哪个方法，只有程序运行后，我们才能够知道。或许我们需要根据客户端传过来的某个String参数的值来判断我们应该执行哪个方法。在这种情况下Java的反射执行就可以帮上忙了。
+  <meta charset="utf-8">
+  
+  <title>Java总结篇：反射 | FirenzesEagle&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="开发的时候有时候会碰到这样的情况，我们在写程序的时候并不知道需要调用某个对象的哪个方法，只有程序运行后，我们才能够知道。或许我们需要根据客户端传过来的某个String参数的值来判断我们应该执行哪个方法。在这种情况下Java的反射执行就可以帮上忙了。
 Java 反射机制定义Java 反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java总结篇：反射">
@@ -70,181 +18,72 @@ Java 反射机制定义Java 反射机制是在运行状态中，对于任意一�
 <meta name="twitter:title" content="Java总结篇：反射">
 <meta name="twitter:description" content="开发的时候有时候会碰到这样的情况，我们在写程序的时候并不知道需要调用某个对象的哪个方法，只有程序运行后，我们才能够知道。或许我们需要根据客户端传过来的某个String参数的值来判断我们应该执行哪个方法。在这种情况下Java的反射执行就可以帮上忙了。
 Java 反射机制定义Java 反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法">
+  
+    <link rel="alternative" href="/atom.xml" title="FirenzesEagle&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
 
-
-
-<script type="text/javascript" id="hexo.configuration">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    scheme: 'Pisces',
-    sidebar: {"position":"left","display":"post"},
-    fancybox: true,
-    motion: true,
-    duoshuo: {
-      userId: 0,
-      author: '博主'
-    }
-  };
-</script>
-
-  <title> Java总结篇：反射 | FirenzesEagle's Blog </title>
 </head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-
-
-
-
-
-
-
-
-
-
-  
-  
-    
-  
-
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-meta ">
-  
-
-  <div class="custom-logo-site-title">
-    <a href="/"  class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <span class="site-title">FirenzesEagle's Blog</span>
-      <span class="logo-line-after"><i></i></span>
-    </a>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">FirenzesEagle&#39;s Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://firenzeseagle.github.io"></form>
+      </div>
+    </div>
   </div>
-  <p class="site-subtitle"></p>
-</div>
-
-<div class="site-nav-toggle">
-  <button>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-  </button>
-</div>
-
-<nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
-            
-              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
-            
-              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-
-      
-    </ul>
-  
-
-  
-</nav>
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-java-reflect" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/12/17/java-reflect/" class="article-date">
+  <time datetime="2015-12-17T10:29:05.000Z" itemprop="datePublished">2015-12-17</time>
+</a>
     
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
+  </div>
+  <div class="article-inner">
     
-      <header class="post-header">
-
+    
+      <header class="article-header">
         
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                Java总结篇：反射
-              
-            
-          </h1>
-        
+  
+    <h1 class="article-title" itemprop="name">
+      Java总结篇：反射
+    </h1>
+  
 
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-12-17T18:29:05+08:00" content="2015-12-17">
-              2015-12-17
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-        </div>
       </header>
     
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
+    <div class="article-entry" itemprop="articleBody">
       
         <p>开发的时候有时候会碰到这样的情况，我们在写程序的时候并不知道需要调用某个对象的哪个方法，只有程序运行后，我们才能够知道。或许我们需要根据客户端传过来的某个String参数的值来判断我们应该执行哪个方法。在这种情况下Java的反射执行就可以帮上忙了。</p>
 <h2 id="Java__u53CD_u5C04_u673A_u5236_u5B9A_u4E49"><a href="#Java__u53CD_u5C04_u673A_u5236_u5B9A_u4E49" class="headerlink" title="Java 反射机制定义"></a>Java 反射机制定义</h2><p>Java 反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法；这种动态获取的信息以及动态调用对象的方法的功能称为Java语言的反射机制。</p>
@@ -312,431 +151,133 @@ Java 反射机制定义Java 反射机制是在运行状态中，对于任意一�
 
       
     </div>
+    <footer class="article-footer">
+      <a data-url="http://firenzeseagle.github.io/2015/12/17/java-reflect/" data-id="cim33tjji000jbsp5bxa9ba4x" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Reflect/">Reflect</a></li></ul>
 
-    <div>
-      
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/Java/" rel="tag">#Java</a>
-          
-            <a href="/tags/Reflect/" rel="tag">#Reflect</a>
-          
-        </div>
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2015/12/17/java-collection/" rel="next" title="Java总结篇：集合综述">
-                <i class="fa fa-chevron-left"></i> Java总结篇：集合综述
-              </a>
-            
-          </div>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2015/12/21/java-annotation/" rel="prev" title="Java总结篇：注解">
-                Java总结篇：注解 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
     </footer>
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
   </div>
-
-
-          </div>
-          
-
-
-          
-  <div class="comments" id="comments">
+  
     
-  </div>
-
-
-        </div>
-        
-          
+<nav id="article-nav">
   
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview sidebar-panel ">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/images/default_avatar.jpg"
-               alt="FirenzesEagle" />
-          <p class="site-author-name" itemprop="name">FirenzesEagle</p>
-          <p class="site-description motion-element" itemprop="description">Nothing is true Everything is permitted</p>
-        </div>
-        <nav class="site-state motion-element">
-          <div class="site-state-item site-state-posts">
-            <a href="/archives">
-              <span class="site-state-item-count">15</span>
-              <span class="site-state-item-name">日志</span>
-            </a>
-          </div>
-
-          
-
-          
-            <div class="site-state-item site-state-tags">
-              <a href="/tags">
-                <span class="site-state-item-count">13</span>
-                <span class="site-state-item-name">标签</span>
-              </a>
-            </div>
-          
-
-        </nav>
-
+    <a href="/2015/12/21/java-annotation/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
         
-
-        <div class="links-of-author motion-element">
-          
-        </div>
-
-        
-        
-
-        
-        <div class="links-of-blogroll motion-element">
-          
-        </div>
-
-      </section>
-
-      
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc-indicator-top post-toc-indicator">
-            <i class="fa fa-angle-double-up"></i>
-          </div>
-          <div class="post-toc">
-            
-              
-            
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java__u53CD_u5C04_u673A_u5236_u5B9A_u4E49"><span class="nav-number">1.</span> <span class="nav-text">Java 反射机制定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u4E3E_u4F8B"><span class="nav-number">2.</span> <span class="nav-text">举例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#u901A_u8FC7_u4E00_u4E2A_u5BF9_u8C61_u83B7_u5F97_u5B8C_u6574_u7684_u5305_u540D_u548C_u7C7B_u540D"><span class="nav-number">2.1.</span> <span class="nav-text">通过一个对象获得完整的包名和类名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u5B9E_u4F8B_u5316Class_u7C7B_u5BF9_u8C61"><span class="nav-number">2.2.</span> <span class="nav-text">实例化Class类对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u901A_u8FC7Class_u5B9E_u4F8B_u5316_u5176_u4ED6_u7C7B_u7684_u5BF9_u8C61"><span class="nav-number">2.3.</span> <span class="nav-text">通过Class实例化其他类的对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u901A_u8FC7Class_u8C03_u7528_u5176_u4ED6_u7C7B_u4E2D_u7684_u6784_u9020_u51FD_u6570__uFF08_u4E5F_u53EF_u4EE5_u901A_u8FC7_u8FD9_u79CD_u65B9_u5F0F_u901A_u8FC7Class_u521B_u5EFA_u5176_u4ED6_u7C7B_u7684_u5BF9_u8C61_uFF09"><span class="nav-number">2.4.</span> <span class="nav-text">通过Class调用其他类中的构造函数 （也可以通过这种方式通过Class创建其他类的对象）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u8FD4_u56DE_u4E00_u4E2A_u7C7B_u5B9E_u73B0_u7684_u63A5_u53E3"><span class="nav-number">2.5.</span> <span class="nav-text">返回一个类实现的接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u53D6_u5F97_u5176_u4ED6_u7C7B_u4E2D_u7684_u7236_u7C7B"><span class="nav-number">2.6.</span> <span class="nav-text">取得其他类中的父类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u83B7_u5F97_u5176_u4ED6_u7C7B_u4E2D_u7684_u5168_u90E8_u6784_u9020_u51FD_u6570"><span class="nav-number">2.7.</span> <span class="nav-text">获得其他类中的全部构造函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u83B7_u53D6_u542B_u4FEE_u9970_u7B26_u4FEE_u9970_u7B26_u7684_u6784_u9020_u51FD_u6570"><span class="nav-number">2.8.</span> <span class="nav-text">获取含修饰符修饰符的构造函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u83B7_u53D6_u65B9_u6CD5_u4EA7_u751F_u7684_u5F02_u5E38"><span class="nav-number">2.9.</span> <span class="nav-text">获取方法产生的异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u83B7_u53D6_u672C_u7C7B_u7684_u5168_u90E8_u5C5E_u6027"><span class="nav-number">2.10.</span> <span class="nav-text">获取本类的全部属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u83B7_u53D6_u5176_u4ED6_u7C7B_u4E2D_u7684_u65B9_u6CD5"><span class="nav-number">2.11.</span> <span class="nav-text">获取其他类中的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u8C03_u7528_u5176_u4ED6_u7C7B_u7684set_u548Cget_u65B9_u6CD5"><span class="nav-number">2.12.</span> <span class="nav-text">调用其他类的set和get方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u901A_u8FC7_u53CD_u5C04_u64CD_u4F5C_u5C5E_u6027"><span class="nav-number">2.13.</span> <span class="nav-text">通过反射操作属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u901A_u8FC7_u53CD_u5C04_u53D6_u5F97_u5E76_u4FEE_u6539_u6570_u7EC4_u7684_u4FE1_u606F"><span class="nav-number">2.14.</span> <span class="nav-text">通过反射取得并修改数组的信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u901A_u8FC7_u53CD_u5C04_u4FEE_u6539_u6570_u7EC4_u5927_u5C0F"><span class="nav-number">2.15.</span> <span class="nav-text">通过反射修改数组大小</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u52A8_u6001_u4EE3_u7406"><span class="nav-number">3.</span> <span class="nav-text">动态代理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#u83B7_u5F97_u7C7B_u52A0_u8F7D_u5668"><span class="nav-number">3.1.</span> <span class="nav-text">获得类加载器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u5C06_u53CD_u5C04_u7528_u4E8E_u5DE5_u5382_u6A21_u5F0F"><span class="nav-number">3.2.</span> <span class="nav-text">将反射用于工厂模式</span></a></li></ol></li></ol></div>
-            
-          </div>
-          <div class="post-toc-indicator-bottom post-toc-indicator">
-            <i class="fa fa-angle-double-down"></i>
-          </div>
-        </section>
-      
-
-    </div>
-  </aside>
-
-
+          Java总结篇：注解
         
       </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright" >
+    </a>
   
-  &copy; 
-  <span itemprop="copyrightYear">2016</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">FirenzesEagle</span>
-</div>
+  
+    <a href="/2015/12/17/java-collection/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Java总结篇：集合综述</div>
+    </a>
+  
+</nav>
 
-<div class="powered-by">
-  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
-</div>
+  
+</article>
 
-<div class="theme-info">
-  主题 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Pisces
-  </a>
-</div>
-
-
-
-      </div>
-    </footer>
-
-    <div class="back-to-top">
-      <i class="fa fa-arrow-up"></i>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Annotation/">Annotation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/">HTTP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IO/">IO</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IPv6/">IPv6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reflect/">Reflect</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Serializable/">Serializable</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/多态/">多态</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/泛型/">泛型</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/继承/">继承</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/集合/">集合</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
   
-
-
-  
-
-
-
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
-  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
-
-  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
-
-  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
-
-  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
-
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Annotation/" style="font-size: 10px;">Annotation</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 13.33px;">Hexo</a> <a href="/tags/IO/" style="font-size: 10px;">IO</a> <a href="/tags/IPv6/" style="font-size: 10px;">IPv6</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Linux/" style="font-size: 16.67px;">Linux</a> <a href="/tags/Reflect/" style="font-size: 10px;">Reflect</a> <a href="/tags/Serializable/" style="font-size: 10px;">Serializable</a> <a href="/tags/多态/" style="font-size: 10px;">多态</a> <a href="/tags/泛型/" style="font-size: 10px;">泛型</a> <a href="/tags/继承/" style="font-size: 10px;">继承</a> <a href="/tags/集合/" style="font-size: 10px;">集合</a>
+    </div>
+  </div>
 
   
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=0.5.0"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=0.5.0"></script>
-
-
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">11</span></li></ul>
+    </div>
+  </div>
 
   
-  
-<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
-
-<script type="text/javascript" id="sidebar.toc.highlight">
-  $(document).ready(function () {
-    var tocSelector = '.post-toc';
-    var $tocSelector = $(tocSelector);
-    var activeCurrentSelector = '.active-current';
-
-    $tocSelector
-      .on('activate.bs.scrollspy', function () {
-        var $currentActiveElement = $(tocSelector + ' .active').last();
-
-        removeCurrentActiveClass();
-        $currentActiveElement.addClass('active-current');
-
-        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
-      })
-      .on('clear.bs.scrollspy', function () {
-        removeCurrentActiveClass();
-      });
-
-    function removeCurrentActiveClass () {
-      $(tocSelector + ' ' + activeCurrentSelector)
-        .removeClass(activeCurrentSelector.substring(1));
-    }
-
-    function processTOC () {
-      getTOCMaxHeight();
-      toggleTOCOverflowIndicators();
-    }
-
-    function getTOCMaxHeight () {
-      var height = $('.sidebar').height() -
-                   $tocSelector.position().top -
-                   $('.post-toc-indicator-bottom').height();
-
-      $tocSelector.css('height', height);
-
-      return height;
-    }
-
-    function toggleTOCOverflowIndicators () {
-      tocOverflowIndicator(
-        '.post-toc-indicator-top',
-        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
-      );
-
-      tocOverflowIndicator(
-        '.post-toc-indicator-bottom',
-        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
-      )
-    }
-
-    $(document).on('sidebar.motion.complete', function () {
-      processTOC();
-    });
-
-    $('body').scrollspy({ target: tocSelector });
-    $(window).on('resize', function () {
-      if ( $('.sidebar').hasClass('sidebar-active') ) {
-        processTOC();
-      }
-    });
-
-    onScroll($tocSelector);
-
-    function onScroll (element) {
-      element.on('mousewheel DOMMouseScroll', function (event) {
-          var oe = event.originalEvent;
-          var delta = oe.wheelDelta || -oe.detail;
-
-          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
-          event.preventDefault();
-
-          toggleTOCOverflowIndicators();
-      });
-    }
-
-    function tocOverflowIndicator (indicator, action) {
-      var $indicator = $(indicator);
-      var opacity = action === 'show' ? 1 : 0;
-      $indicator.velocity ?
-        $indicator.velocity('stop').velocity({
-          opacity: opacity
-        }, { duration: 100 }) :
-        $indicator.stop().animate({
-          opacity: opacity
-        }, 100);
-    }
-
-  });
-</script>
-
-<script type="text/javascript" id="sidebar.nav">
-  $(document).ready(function () {
-    var html = $('html');
-    var TAB_ANIMATE_DURATION = 200;
-    var hasVelocity = $.isFunction(html.velocity);
-
-    $('.sidebar-nav li').on('click', function () {
-      var item = $(this);
-      var activeTabClassName = 'sidebar-nav-active';
-      var activePanelClassName = 'sidebar-panel-active';
-      if (item.hasClass(activeTabClassName)) {
-        return;
-      }
-
-      var currentTarget = $('.' + activePanelClassName);
-      var target = $('.' + item.data('target'));
-
-      hasVelocity ?
-        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
-          target
-            .velocity('stop')
-            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
-            .addClass(activePanelClassName);
-        }) :
-        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
-          currentTarget.hide();
-          target
-            .stop()
-            .css({'opacity': 0, 'display': 'block'})
-            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
-              currentTarget.removeClass(activePanelClassName);
-              target.addClass(activePanelClassName);
-            });
-        });
-
-      item.siblings().removeClass(activeTabClassName);
-      item.addClass(activeTabClassName);
-    });
-
-    $('.post-toc a').on('click', function (e) {
-      e.preventDefault();
-      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
-      var offset = $(targetSelector).offset().top;
-      hasVelocity ?
-        html.velocity('stop').velocity('scroll', {
-          offset: offset  + 'px',
-          mobileHA: false
-        }) :
-        $('html, body').stop().animate({
-          scrollTop: offset
-        }, 500);
-    });
-
-    // Expand sidebar on post detail page by default, when post has a toc.
-    NexT.motion.middleWares.sidebar = function () {
-      var $tocContent = $('.post-toc-content');
-
-      if (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always') {
-        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
-          NexT.utils.displaySidebar();
-        }
-      }
-    };
-  });
-</script>
-
-
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/03/22/HTTP/">图解HTTP</a>
+          </li>
+        
+          <li>
+            <a href="/2016/01/26/linux-disk-manage/">无损调整Windows与Linux分区</a>
+          </li>
+        
+          <li>
+            <a href="/2016/01/26/linux-jdk/">Ubuntu14.04 安装配置jdk1.8</a>
+          </li>
+        
+          <li>
+            <a href="/2016/01/08/linux-IPv6/">校园网下使用IPv6源 免流量更新</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/29/java-io/">Java总结篇：IO操作</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
 
   
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
-
-
-
+</aside>
+        
+      </div>
+      <footer id="footer">
   
-
-
-
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 FirenzesEagle<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
   
-
-
-
+    <a href="/" class="mobile-nav-link">Home</a>
   
+    <a href="/archives" class="mobile-nav-link">Archives</a>
   
-  
+</nav>
+    
 
-  
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
 </body>
 </html>
