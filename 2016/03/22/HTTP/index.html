@@ -35,7 +35,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Linux," />
+  <meta name="keywords" content="HTTP," />
 
 
 
@@ -51,16 +51,71 @@
 
 
 
-<meta name="description" content="安装windows7+elementary os双系统的时候，选择的elementary os自动安装，结果安装程序给主分区/分了8G的硬盘空间，给/swap分区分了4个G的硬盘空间，导致后来安装上各种软件后，Linux主分区提示硬盘空间不足。开始想着重装系统好了，但是毕竟再重新装一堆软件并进行各种配置实在是一件十分费神的事情，所以在这里介绍下如何对Linux分区进行无损的扩展。">
+<meta name="description" content="了解Web及网络基础
+
+
+URI：统一资源标识符   用字符串标识某一互联网资源
+URL：统一资源定位符    标识资源的地点    URL是URI的子集
+
+
+简单的HTTP协议HTTP协议规定，请求从客户端发出，最后服务器端响应该请求并返回。肯定是先从客户端开始建立通信的，服务器端在没有接收到请求之前不会发送响应。
+
+
+请求报文的构成
+
+
+
+响应报文的构成
+
+
+HTTP是不保存状态的协议，即无状">
 <meta property="og:type" content="article">
-<meta property="og:title" content="无损调整Windows与Linux分区">
-<meta property="og:url" content="http://firenzeseagle.github.io/2016/01/26/linux-disk-manage/index.html">
+<meta property="og:title" content="图解HTTP">
+<meta property="og:url" content="http://firenzeseagle.github.io/2016/03/22/HTTP/index.html">
 <meta property="og:site_name" content="FirenzesEagle's Blog">
-<meta property="og:description" content="安装windows7+elementary os双系统的时候，选择的elementary os自动安装，结果安装程序给主分区/分了8G的硬盘空间，给/swap分区分了4个G的硬盘空间，导致后来安装上各种软件后，Linux主分区提示硬盘空间不足。开始想着重装系统好了，但是毕竟再重新装一堆软件并进行各种配置实在是一件十分费神的事情，所以在这里介绍下如何对Linux分区进行无损的扩展。">
-<meta property="og:updated_time" content="2016-01-29T03:13:29.057Z">
+<meta property="og:description" content="了解Web及网络基础
+
+
+URI：统一资源标识符   用字符串标识某一互联网资源
+URL：统一资源定位符    标识资源的地点    URL是URI的子集
+
+
+简单的HTTP协议HTTP协议规定，请求从客户端发出，最后服务器端响应该请求并返回。肯定是先从客户端开始建立通信的，服务器端在没有接收到请求之前不会发送响应。
+
+
+请求报文的构成
+
+
+
+响应报文的构成
+
+
+HTTP是不保存状态的协议，即无状">
+<meta property="og:image" content="http://7xowla.com1.z0.glb.clouddn.com/1.6-1.jpg">
+<meta property="og:image" content="http://7xowla.com1.z0.glb.clouddn.com/2.2-2.jpg">
+<meta property="og:image" content="http://7xowla.com1.z0.glb.clouddn.com/2.2-3.jpg">
+<meta property="og:image" content="http://7xowla.com1.z0.glb.clouddn.com/2.2-4.jpg">
+<meta property="og:updated_time" content="2016-03-22T03:18:23.095Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="无损调整Windows与Linux分区">
-<meta name="twitter:description" content="安装windows7+elementary os双系统的时候，选择的elementary os自动安装，结果安装程序给主分区/分了8G的硬盘空间，给/swap分区分了4个G的硬盘空间，导致后来安装上各种软件后，Linux主分区提示硬盘空间不足。开始想着重装系统好了，但是毕竟再重新装一堆软件并进行各种配置实在是一件十分费神的事情，所以在这里介绍下如何对Linux分区进行无损的扩展。">
+<meta name="twitter:title" content="图解HTTP">
+<meta name="twitter:description" content="了解Web及网络基础
+
+
+URI：统一资源标识符   用字符串标识某一互联网资源
+URL：统一资源定位符    标识资源的地点    URL是URI的子集
+
+
+简单的HTTP协议HTTP协议规定，请求从客户端发出，最后服务器端响应该请求并返回。肯定是先从客户端开始建立通信的，服务器端在没有接收到请求之前不会发送响应。
+
+
+请求报文的构成
+
+
+
+响应报文的构成
+
+
+HTTP是不保存状态的协议，即无状">
 
 
 
@@ -72,7 +127,7 @@
   };
 </script>
 
-  <title> 无损调整Windows与Linux分区 | FirenzesEagle's Blog </title>
+  <title> 图解HTTP | FirenzesEagle's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -233,7 +288,7 @@
             
             
               
-                无损调整Windows与Linux分区
+                图解HTTP
               
             
           </h1>
@@ -242,8 +297,8 @@
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2016-01-26T20:46:17+08:00" content="2016-01-26">
-              2016-01-26
+            <time itemprop="dateCreated" datetime="2016-03-22T11:08:29+08:00" content="2016-03-22">
+              2016-03-22
             </time>
           </span>
 
@@ -253,8 +308,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/01/26/linux-disk-manage/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/26/linux-disk-manage/" itemprop="commentsCount"></span>
+                <a href="/2016/03/22/HTTP/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/22/HTTP/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -273,61 +328,33 @@
       
 
       
-        <span itemprop="articleBody"><p>安装<code>windows7</code>+<code>elementary os</code>双系统的时候，选择的<code>elementary os</code>自动安装，结果安装程序给主分区<code>/</code>分了8G的硬盘空间，给<code>/swap</code>分区分了4个G的硬盘空间，导致后来安装上各种软件后，Linux主分区提示硬盘空间不足。开始想着重装系统好了，但是毕竟再重新装一堆软件并进行各种配置实在是一件十分费神的事情，所以在这里介绍下如何对Linux分区进行无损的扩展。</p>
-<a id="more"></a>
-<h2 id="u6D89_u53CA_u5230_u7684_u786C_u4EF6_u4E0E_u8F6F_u4EF6"><a href="#u6D89_u53CA_u5230_u7684_u786C_u4EF6_u4E0E_u8F6F_u4EF6" class="headerlink" title="涉及到的硬件与软件"></a>涉及到的硬件与软件</h2><blockquote>
+        <span itemprop="articleBody"><h2 id="u4E86_u89E3Web_u53CA_u7F51_u7EDC_u57FA_u7840"><a href="#u4E86_u89E3Web_u53CA_u7F51_u7EDC_u57FA_u7840" class="headerlink" title="了解Web及网络基础"></a>了解Web及网络基础</h2><p><img src="http://7xowla.com1.z0.glb.clouddn.com/1.6-1.jpg" alt="HTTP流程"></p>
+<blockquote>
 <ul>
-<li>三星 830 128G SSD</li>
-<li>Sandisk Extreme CZ80 32G U盘</li>
-<li>DiskGenius Windows平台无损硬盘分区工具</li>
-<li>UltraISO 软碟通 制作镜像U盘工具</li>
-<li>Gparted-live-0.25.0-1-amd64.iso 针对Linux分区格式的无损硬盘分区工具</li>
+<li>URI：统一资源标识符   用字符串标识某一互联网资源</li>
+<li>URL：统一资源定位符    标识资源的地点    URL是URI的子集</li>
 </ul>
 </blockquote>
-<h2 id="u8C03_u6574Windows_u4E0B_u5206_u533A_u5927_u5C0F"><a href="#u8C03_u6574Windows_u4E0B_u5206_u533A_u5927_u5C0F" class="headerlink" title="调整Windows下分区大小"></a>调整Windows下分区大小</h2><p>调整之前，SSD的分区如下：</p>
+<h2 id="u7B80_u5355_u7684HTTP_u534F_u8BAE"><a href="#u7B80_u5355_u7684HTTP_u534F_u8BAE" class="headerlink" title="简单的HTTP协议"></a>简单的HTTP协议</h2><p>HTTP协议规定，请求从客户端发出，最后服务器端响应该请求并返回。肯定是先从客户端开始建立通信的，服务器端在没有接收到请求之前不会发送响应。</p>
+<p><img src="http://7xowla.com1.z0.glb.clouddn.com/2.2-2.jpg" alt=""></p>
+<ul>
+<li>请求报文的构成</li>
+</ul>
+<p><img src="http://7xowla.com1.z0.glb.clouddn.com/2.2-3.jpg" alt=""></p>
+<ul>
+<li>响应报文的构成</li>
+</ul>
+<p><img src="http://7xowla.com1.z0.glb.clouddn.com/2.2-4.jpg" alt=""></p>
+<p>HTTP是不保存状态的协议，即无状态协议。为了实现期望的保持状态功能，引入了Cookie技术。</p>
+<p>GET：获取资源    GET方法用来请求访问已被URI识别的资源。<br>POST：传输实体主体<br>PUT：传输文件    不带验证机制<br>HEAD：获得报文首部    与GET方法一样，只是不返回报文主体部分，用于确认URI的有效性及资源更新的日期时间等。<br>DELETE：删除文件    不带验证机制<br>OPTIONS：询问支持的方法<br>TRACE：追踪路径    让Web服务器端将之前的请求通信环回给客户端的方法    容易引发XST（跨站追踪）攻击，通常不使用<br>CONNECT：要求用隧道协议连接代理    主要使用SSL（安全套接层）和TLS（传输层安全）协议把通信内容加密后经网络隧道传输</p>
+<p>在HTTP/1.1中，所有的连接默认都是持久连接，但在HTTP/1.0内并未标准化。虽然有一部分服务器通过非标准的手段实现了持久连接，但服务器端不一定能够支持持久连接。</p>
+<p>管线化技术出现后，不用等待响应亦可直接发送下一个请求。</p>
+<p>Cookie会根据从服务器端发送的响应报文内的一个叫做Set-Cookie的首部字段信息，通知客户端保存Cookie。当下次客户端再往该服务器发送请求时，客户端会自动在请求报文中加入Cookie值后发送出去。<br>发生Cookie交互的情景，HTTP请求报文和响应报文的内容如下：</p>
 <blockquote>
-<ol>
-<li>100G Windows系统分区 主分区 NTFS格式</li>
-<li>8G Linux<code>/</code>分区 拓展分区1 EXT3格式</li>
-<li>4G Linux<code>/swap</code>交换分区 拓展分区2 EXT3格式</li>
-</ol>
+<p>1.请求报文（没有Cookie信息的状态）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GET /reader/ HTTP/<span class="number">1.1</span></span><br><span class="line">Host: hackr.jp</span><br><span class="line">*首部字段内没有Cookie的相关信息</span><br></pre></td></tr></table></figure></p>
+<p>2.响应报文（服务器端生成Cookie信息）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">HTTP/<span class="number">1.1</span> <span class="number">200</span> OK</span><br><span class="line">Date: Thu, <span class="number">12</span> Jul <span class="number">2012</span> <span class="number">07</span>:<span class="number">12</span>:<span class="number">20</span> GMT</span><br><span class="line">Server:Apache</span><br><span class="line">&lt; Set-Cookie: sid=A8FmLwMtznTocnVv7; path=/; expires=Wed,=&gt;<span class="number">10</span>-Oct-<span class="number">12</span> <span class="number">07</span>:<span class="number">12</span>:<span class="number">20</span> GMT &gt;</span><br><span class="line">Content-Type: text/plain; charset=UTF-<span class="number">8</span></span><br></pre></td></tr></table></figure></p>
+<p>3.请求报文（自动发送保存着的Cookie信息）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GET /image/ HTTP/<span class="number">1.1</span></span><br><span class="line">Host:hackr.jp</span><br><span class="line">Cookie: sid=A8FmLwMtznTocnVv7</span><br></pre></td></tr></table></figure></p>
 </blockquote>
-<p>使用DiskGenius将100G的Windows分区无损划分出40G的大小变为空闲分区，期间系统会重启自动进入DOS下的DiskGenius软件，等待调整分区工作完成后自动重启，这时候就可以得到一个40G的未被格式化的空闲分区。</p>
-<p>这时候我的<code>/</code>分区和<code>/swap</code>交换分区还都是逻辑分区，可以用DiskGenius软件转换为主分区，对数据没有任何影响。</p>
-<p>调整之后，SSD的分区如下：</p>
-<blockquote>
-<ol>
-<li>60G Windows系统分区 主分区 NTFS格式</li>
-<li>40G 空闲分区 未格式化</li>
-<li>8G Linux<code>/</code>分区 主分区 EXT3格式</li>
-<li>4G Linux<code>/swap</code>交换分区 主分区 EXT3格式</li>
-</ol>
-</blockquote>
-<h2 id="u5408_u5E76_u7A7A_u95F2_u5206_u533A_u81F3/_u5206_u533A"><a href="#u5408_u5E76_u7A7A_u95F2_u5206_u533A_u81F3/_u5206_u533A" class="headerlink" title="合并空闲分区至<code>/</code>分区"></a>合并空闲分区至<code>/</code>分区</h2><p>使用软碟通（UltraISO）将下载好的Gparted镜像写入到U盘中，做成U盘启动盘，重启电脑，进入Gparted-live中，右键点击<code>/</code>分区，弹出右键菜单选择“更改大小/移动”，将8G的<code>/</code>分区增加至48G的大小，点击应用。提示可能会导致Grub引导丢失，点继续，大概一两分钟即可将空闲分区合并至<code>/</code>分区。合并完成后重启。</p>
-<h2 id="u4FEE_u590DGrub_u5F15_u5BFC"><a href="#u4FEE_u590DGrub_u5F15_u5BFC" class="headerlink" title="修复Grub引导"></a>修复Grub引导</h2><p>重启之后，会发现Grub引导丢失了，无法进入Grub选择启动的系统。可以通过以下步骤修复Grub引导。</p>
-<ol>
-<li><p>输入ls回车，查看显示的内容。如：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(hd0) (hd0,msdos4) (hd0,msdos3) (hd0,msdos2)....</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>找出哪个盘安装了系统</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ls (hd0,msdos1)/boot/grub</span><br><span class="line">ls (hd0,msdos2)/boot/grub</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>尝试所有的，直到返回内容不再是<code>error: unknown filesystem.</code>为止</p>
-</li>
-<li><p>依次输入如下命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> root=(hd0,msdos13)/boot/grub</span><br><span class="line"><span class="built_in">set</span> prefix=(hd0,msdos13)/boot/grub</span><br><span class="line">insmod normal</span><br><span class="line">normal</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>normal执行之后即进入选择启动项的界面，选择启动的系统进入</p>
-</li>
-<li><p>打开终端,输入如下命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo fdisk <span class="operator">-l</span></span><br></pre></td></tr></table></figure>
-<p>找出自己系统分区所在硬盘，比如<code>/sda</code>，输入如下命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo grub-install /dev/sdb</span><br><span class="line">sudo update-grub</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>重启电脑：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo reboot</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
 </span>
       
     </div>
@@ -336,7 +363,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Linux/" rel="tag">#Linux</a>
+            <a href="/tags/HTTP/" rel="tag">#HTTP</a>
           
         </div>
       
@@ -345,17 +372,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/01/26/linux-jdk/" rel="next" title="Ubuntu14.04 安装配置jdk1.8">
-                <i class="fa fa-chevron-left"></i> Ubuntu14.04 安装配置jdk1.8
+              <a href="/2016/01/26/linux-disk-manage/" rel="next" title="无损调整Windows与Linux分区">
+                <i class="fa fa-chevron-left"></i> 无损调整Windows与Linux分区
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/03/22/HTTP/" rel="prev" title="图解HTTP">
-                图解HTTP <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -382,8 +405,8 @@
         
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/01/26/linux-disk-manage/"
-           data-title="无损调整Windows与Linux分区" data-url="http://firenzeseagle.github.io/2016/01/26/linux-disk-manage/">
+      <div class="ds-thread" data-thread-key="2016/03/22/HTTP/"
+           data-title="图解HTTP" data-url="http://firenzeseagle.github.io/2016/03/22/HTTP/">
       </div>
     
   </div>
@@ -497,7 +520,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#u6D89_u53CA_u5230_u7684_u786C_u4EF6_u4E0E_u8F6F_u4EF6"><span class="nav-number">1.</span> <span class="nav-text">涉及到的硬件与软件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u8C03_u6574Windows_u4E0B_u5206_u533A_u5927_u5C0F"><span class="nav-number">2.</span> <span class="nav-text">调整Windows下分区大小</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u5408_u5E76_u7A7A_u95F2_u5206_u533A_u81F3/_u5206_u533A"><span class="nav-number">3.</span> <span class="nav-text">合并空闲分区至/分区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u4FEE_u590DGrub_u5F15_u5BFC"><span class="nav-number">4.</span> <span class="nav-text">修复Grub引导</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#u4E86_u89E3Web_u53CA_u7F51_u7EDC_u57FA_u7840"><span class="nav-number">1.</span> <span class="nav-text">了解Web及网络基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u7B80_u5355_u7684HTTP_u534F_u8BAE"><span class="nav-number">2.</span> <span class="nav-text">简单的HTTP协议</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
