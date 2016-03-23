@@ -67,7 +67,13 @@
 <meta property="og:image" content="http://7xowla.com1.z0.glb.clouddn.com/2.2-2.jpg">
 <meta property="og:image" content="http://7xowla.com1.z0.glb.clouddn.com/2.2-3.jpg">
 <meta property="og:image" content="http://7xowla.com1.z0.glb.clouddn.com/2.2-4.jpg">
-<meta property="og:updated_time" content="2016-03-22T03:34:58.630Z">
+<meta property="og:image" content="http://7xowla.com1.z0.glb.clouddn.com/3.1-1.jpg">
+<meta property="og:image" content="http://7xowla.com1.z0.glb.clouddn.com/3.2-2.jpg">
+<meta property="og:image" content="http://7xowla.com1.z0.glb.clouddn.com/5.2-2.jpg">
+<meta property="og:image" content="http://7xowla.com1.z0.glb.clouddn.com/5.2-4.jpg">
+<meta property="og:image" content="http://7xowla.com1.z0.glb.clouddn.com/5.2-5.jpg">
+<meta property="og:image" content="http://7xowla.com1.z0.glb.clouddn.com/5.3-1.jpg">
+<meta property="og:updated_time" content="2016-03-23T02:27:39.599Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="图解HTTP">
 <meta name="twitter:description" content="最近阅读了【日】上野 宣所著的《图解HTTP》一书，对HTTP的原理做了更加深入的了解，以前做项目只是在一些流程中遇到过HTTP的一些实例，并没有深入的理解其中具体的细节，读完此书感慨颇深。作者以浅显易懂的语言并以丰富明了的插图向我们介绍了HTTP的原理，比起枯燥的《HTTP原理》等书，此书给人一种耳目一新的感觉，推荐大家读一下。">
@@ -342,6 +348,83 @@
 <p>2.响应报文（服务器端生成Cookie信息）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">HTTP/<span class="number">1.1</span> <span class="number">200</span> OK</span><br><span class="line">Date: Thu, <span class="number">12</span> Jul <span class="number">2012</span> <span class="number">07</span>:<span class="number">12</span>:<span class="number">20</span> GMT</span><br><span class="line">Server:Apache</span><br><span class="line">&lt; Set-Cookie: sid=A8FmLwMtznTocnVv7; path=/; expires=Wed,=&gt;<span class="number">10</span>-Oct-<span class="number">12</span> <span class="number">07</span>:<span class="number">12</span>:<span class="number">20</span> GMT &gt;</span><br><span class="line">Content-Type: text/plain; charset=UTF-<span class="number">8</span></span><br></pre></td></tr></table></figure></p>
 <p>3.请求报文（自动发送保存着的Cookie信息）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GET /image/ HTTP/<span class="number">1.1</span></span><br><span class="line">Host:hackr.jp</span><br><span class="line">Cookie: sid=A8FmLwMtznTocn Vv7</span><br></pre></td></tr></table></figure></p>
 </blockquote>
+<h2 id="HTTP_u62A5_u6587_u5185_u7684HTTP_u4FE1_u606F"><a href="#HTTP_u62A5_u6587_u5185_u7684HTTP_u4FE1_u606F" class="headerlink" title="HTTP报文内的HTTP信息"></a>HTTP报文内的HTTP信息</h2><p>HTTP报文大致可分为报文首部和报文主体两块。两者由最初出现的空行（CR+LF）来划分。通常，并不一定要有报文主体。</p>
+<p><img src="http://7xowla.com1.z0.glb.clouddn.com/3.1-1.jpg" alt=""></p>
+<p>请求报文与响应报文的实例如图：</p>
+<p><img src="http://7xowla.com1.z0.glb.clouddn.com/3.2-2.jpg" alt=""></p>
+<p>常用的内容编码有以下几种：</p>
+<blockquote>
+<ul>
+<li>gzip（GUN zip）</li>
+<li>compress（UNIX系统的标准压缩）</li>
+<li>deflate（zlib）</li>
+<li>identity（不进行编码）</li>
+</ul>
+</blockquote>
+<p>内容协商机制是指客户端和服务器端就响应的资源内容进行交涉，然后提供给客户端最为合适的资源。内容协商会以响应资源的语言、字符集、编码方式等作为判断的基准。<br>包含在请求报文中的某些首部字段（如下）就是判断的基准。</p>
+<blockquote>
+<ul>
+<li>Accept</li>
+<li>Accept-Charset</li>
+<li>Accept-Encoding</li>
+<li>Accept-Language</li>
+<li>Content-Language</li>
+</ul>
+</blockquote>
+<p>内容协商技术主要有以下三种：</p>
+<blockquote>
+<ul>
+<li>服务器驱动协商（Server-driven Negotiation）</li>
+<li>客户端驱动协商（Agent-driven Negotiation）</li>
+<li>透明协商（Transparent Negotiation）</li>
+</ul>
+</blockquote>
+<h2 id="u8FD4_u56DE_u7ED3_u679C_u7684HTTP_u72B6_u6001_u7801"><a href="#u8FD4_u56DE_u7ED3_u679C_u7684HTTP_u72B6_u6001_u7801" class="headerlink" title="返回结果的HTTP状态码"></a>返回结果的HTTP状态码</h2><p>状态码数字中的第一位指定了响应类别，后两位无分类。<br>|   状态码  | 类别  |  原因短语  |<br>| ——–   | —–:  | :—-:  |<br>| 1XX       | Informational（信息性状态码） |   接收的请求正在处理   |<br>| 2XX       |   Success（成功状态码）  |   请求正常处理完毕  |<br>| 3XX       |    Redirection（重定向状态码）    |  需要进行附加操作以完成请求  |<br>| 4XX       |    Client Error（客户端错误状态码）    |  服务器无法处理请求  |<br>| 5XX       |    Server Error（服务器错误状态码）    |  服务器处理请求出错  |<br>只要遵守状态码类别的定义，即使改变RFC2616中定义的状态码，或服务器端自行创建状态码都没问题。</p>
+<h3 id="2XX__u6210_u529F"><a href="#2XX__u6210_u529F" class="headerlink" title="2XX 成功"></a>2XX 成功</h3><blockquote>
+<ul>
+<li>200    OK</li>
+<li>204     No Content</li>
+<li>206    Partial Content</li>
+</ul>
+</blockquote>
+<h3 id="3XX__u91CD_u5B9A_u5411"><a href="#3XX__u91CD_u5B9A_u5411" class="headerlink" title="3XX 重定向"></a>3XX 重定向</h3><blockquote>
+<ul>
+<li>301    Moved Permanently    永久性重定向</li>
+<li>302    Found    临时性重定向</li>
+<li>303    See Other    明确表示客户端应当采用GET方法获取资源</li>
+<li>304    Not Nodified    没有找到符合附带条件的请求</li>
+<li>307    Temporary Redirect    临时重定向</li>
+</ul>
+</blockquote>
+<h3 id="4XX__u5BA2_u6237_u7AEF_u9519_u8BEF"><a href="#4XX__u5BA2_u6237_u7AEF_u9519_u8BEF" class="headerlink" title="4XX 客户端错误"></a>4XX 客户端错误</h3><blockquote>
+<ul>
+<li>400    Bad Request    请求报文中存在语法错误</li>
+<li>401    Unauthorized    须有认证信息或认证失败</li>
+<li>403    Forbidden    对请求资源的访问被服务器拒绝</li>
+<li>404    Not Found    服务器上无法找到请求的资源或服务器拒绝请求</li>
+</ul>
+</blockquote>
+<h3 id="5XX__u670D_u52A1_u5668_u9519_u8BEF"><a href="#5XX__u670D_u52A1_u5668_u9519_u8BEF" class="headerlink" title="5XX 服务器错误"></a>5XX 服务器错误</h3><blockquote>
+<ul>
+<li>500    Internal Server Error    服务器端在执行请求时发生了错误或Web应用存在的bug</li>
+<li>503    Service Unavailable    服务器暂时处于超负载或正在停机维护</li>
+</ul>
+</blockquote>
+<h2 id="u4E0EHTTP_u534F_u4F5C_u7684Web_u670D_u52A1_u5668"><a href="#u4E0EHTTP_u534F_u4F5C_u7684Web_u670D_u52A1_u5668" class="headerlink" title="与HTTP协作的Web服务器"></a>与HTTP协作的Web服务器</h2><h3 id="u4EE3_u7406"><a href="#u4EE3_u7406" class="headerlink" title="代理"></a>代理</h3><p><img src="http://7xowla.com1.z0.glb.clouddn.com/5.2-2.jpg" alt=""></p>
+<p>每次通过代理服务器转发请求或响应时，会追加写入Via首部信息。<br>使用代理服务器的理由：利用缓存技术减少网络带宽的流量，组织内部针对特定网站的访问控制，以获取访问日志为主要目的。</p>
+<p> 代理分为：</p>
+<blockquote>
+<ul>
+<li>缓存代理    代理服务器预先将资源的副本保存在代理服务器上</li>
+<li>透明代理    转发请求或响应时，不对报文做任何的加工</li>
+</ul>
+</blockquote>
+<h3 id="u7F51_u5173"><a href="#u7F51_u5173" class="headerlink" title="网关"></a>网关</h3><p><img src="http://7xowla.com1.z0.glb.clouddn.com/5.2-4.jpg" alt=""></p>
+<p>网关的工作机制与代理相似，但是网关能使通信线路上的服务器提供非HTTP协议服务，并且能提高通信的安全性。</p>
+<h3 id="u96A7_u9053"><a href="#u96A7_u9053" class="headerlink" title="隧道"></a>隧道</h3><p><img src="http://7xowla.com1.z0.glb.clouddn.com/5.2-5.jpg" alt=""></p>
+<p>隧道本身不会去解析HTTP请求，可按要求建立起一条与其他服务器的通信线路，届时使用SSL等加密手段进行通信。<br>隧道本身是透明的，客户端不用在意隧道的存在。</p>
+<h3 id="u4FDD_u5B58_u8D44_u6E90_u7684_u7F13_u5B58"><a href="#u4FDD_u5B58_u8D44_u6E90_u7684_u7F13_u5B58" class="headerlink" title="保存资源的缓存"></a>保存资源的缓存</h3><p><img src="http://7xowla.com1.z0.glb.clouddn.com/5.3-1.jpg" alt=""></p>
+<p>缓存服务器是代理服务器的一种，当代理转发从服务器返回的响应时，代理服务器将会保存一份资源的副本。<br>缓存不仅可以存在于缓存服务器内，还可以存在客户端浏览器中。浏览器缓存如果有效，就不必再向服务器请求相同的资源了。</p>
 
       
     </div>
@@ -529,7 +612,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#u4E86_u89E3Web_u53CA_u7F51_u7EDC_u57FA_u7840"><span class="nav-number">1.</span> <span class="nav-text">了解Web及网络基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u7B80_u5355_u7684HTTP_u534F_u8BAE"><span class="nav-number">2.</span> <span class="nav-text">简单的HTTP协议</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#u4E86_u89E3Web_u53CA_u7F51_u7EDC_u57FA_u7840"><span class="nav-number">1.</span> <span class="nav-text">了解Web及网络基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u7B80_u5355_u7684HTTP_u534F_u8BAE"><span class="nav-number">2.</span> <span class="nav-text">简单的HTTP协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP_u62A5_u6587_u5185_u7684HTTP_u4FE1_u606F"><span class="nav-number">3.</span> <span class="nav-text">HTTP报文内的HTTP信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u8FD4_u56DE_u7ED3_u679C_u7684HTTP_u72B6_u6001_u7801"><span class="nav-number">4.</span> <span class="nav-text">返回结果的HTTP状态码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2XX__u6210_u529F"><span class="nav-number">4.1.</span> <span class="nav-text">2XX 成功</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3XX__u91CD_u5B9A_u5411"><span class="nav-number">4.2.</span> <span class="nav-text">3XX 重定向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4XX__u5BA2_u6237_u7AEF_u9519_u8BEF"><span class="nav-number">4.3.</span> <span class="nav-text">4XX 客户端错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5XX__u670D_u52A1_u5668_u9519_u8BEF"><span class="nav-number">4.4.</span> <span class="nav-text">5XX 服务器错误</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u4E0EHTTP_u534F_u4F5C_u7684Web_u670D_u52A1_u5668"><span class="nav-number">5.</span> <span class="nav-text">与HTTP协作的Web服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#u4EE3_u7406"><span class="nav-number">5.1.</span> <span class="nav-text">代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u7F51_u5173"><span class="nav-number">5.2.</span> <span class="nav-text">网关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u96A7_u9053"><span class="nav-number">5.3.</span> <span class="nav-text">隧道</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u4FDD_u5B58_u8D44_u6E90_u7684_u7F13_u5B58"><span class="nav-number">5.4.</span> <span class="nav-text">保存资源的缓存</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
