@@ -256,6 +256,117 @@
             
               
                 
+                <a class="post-title-link" href="/2016/05/04/IDEA-Override/" itemprop="url">
+                  解决IDEA中类实现接口时@Override标红
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-04T17:32:51+08:00" content="2016-05-04">
+              2016-05-04
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/05/04/IDEA-Override/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/04/IDEA-Override/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/05/04/IDEA-Override/" class="leancloud_visitors" data-flag-title="解决IDEA中类实现接口时@Override标红">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>导入别人的Demo项目的时候，发现IDEA把所有的接口实现类重载方法上<code>@Override</code>的Annotation都自动标红了，放上去提示：</p>
+<blockquote>
+<p><code>@Override is not allowed when implementing interface method</code></p>
+</blockquote>
+<p>查阅了Stack Overflow后发现是由于<code>Project language Level</code>被设置成5.0，而5.0不支持<code>@Override in interfaces</code>语法才导致这个问题。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/05/04/IDEA-Override/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/03/24/IDEA-MVN/" itemprop="url">
                   解决IDEA新建MAVEN项目 MVN ARCHETYPE:GENERATE 速度缓慢
                 </a>
@@ -1224,113 +1335,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/12/17/java-serializable/" itemprop="url">
-                  Java总结篇：使用序列化实现对象的拷贝
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-12-17T11:05:02+08:00" content="2015-12-17">
-              2015-12-17
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/12/17/java-serializable/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/17/java-serializable/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-             <span id="/2015/12/17/java-serializable/" class="leancloud_visitors" data-flag-title="Java总结篇：使用序列化实现对象的拷贝">
-               &nbsp; | &nbsp;
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               <span class="post-meta-item-text">阅读次数 </span>
-               <span class="leancloud-visitors-count"></span>
-              </span>
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>我们知道在Java中存在这个接口<code>Cloneable</code>，实现该接口的类都会具备被拷贝的能力，同时拷贝是在内存中进行，在性能方面比我们直接通过new生成对象来的快，特别是在大对象的生成上，使得性能的提升非常明显。然而我们知道拷贝分为深拷贝和浅拷贝之分，但是浅拷贝存在对象属性拷贝不彻底问题。关于深拷贝、浅拷贝的请参考这里：<a href="http://firenzeseagle.github.io/2015/12/16/java-copy/">Java总结篇：浅拷贝和深拷贝</a></p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/12/17/java-serializable/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1376,7 +1380,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-count">17</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
